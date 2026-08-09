@@ -8,8 +8,8 @@
 // то GITHUB_OWNER = 'ivanpetrov', GITHUB_REPO = 'billiard-rating'
 // ============================================================
 
-export const GITHUB_OWNER = 'ВАШ_ЛОГИН';
-export const GITHUB_REPO = 'НАЗВАНИЕ_РЕПОЗИТОРИЯ';
+export const GITHUB_OWNER = 'Ep1cType';
+export const GITHUB_REPO = 'billiard-rating';
 export const GITHUB_BRANCH = 'main';
 export const DATA_PATH = 'data/db.json';
 
