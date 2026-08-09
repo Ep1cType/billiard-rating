@@ -1,0 +1,805 @@
+/* ============================================================
+   ТОКЕНЫ ДИЗАЙНА
+   Тема: сукно бильярдного стола, деревянный борт, мел, латунь.
+   ============================================================ */
+:root {
+  --felt-deep: #0e2921;
+  --felt: #153a2d;
+  --felt-light: #1f4c3b;
+  --felt-lighter: #2a5f4a;
+
+  --rail: #46311f;
+  --rail-light: #6b4a2c;
+  --rail-dark: #2c1f14;
+
+  --chalk: #f3ecdb;
+  --chalk-dim: #aebbae;
+  --chalk-faint: #7c8b7c;
+
+  --brass: #d4af37;
+  --brass-light: #eccb63;
+  --brass-dark: #9c7a1f;
+
+  --cue-red: #a8433f;
+  --danger: #c1504a;
+  --danger-bg: #3a1d1c;
+  --success: #5c9a63;
+  --success-bg: #1a3324;
+
+  --silver-a: #dfe4e8;
+  --silver-b: #98a3ac;
+  --bronze-a: #cf9a63;
+  --bronze-b: #8a5a34;
+
+  --font-display: 'Unbounded', 'Arial Narrow', sans-serif;
+  --font-body: 'PT Sans', -apple-system, Segoe UI, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  --radius: 12px;
+  --radius-sm: 7px;
+  --radius-pill: 999px;
+
+  --shadow-panel: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.25);
+
+  --content-width: 1080px;
+}
+
+/* ============================================================
+   RESET / BASE
+   ============================================================ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--felt-deep);
+  background-image:
+    radial-gradient(ellipse 900px 500px at 50% -10%, rgba(212, 175, 55, 0.08), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  color: var(--chalk);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0 0 1em;
+  color: var(--chalk-dim);
+}
+
+a {
+  color: var(--brass-light);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button, input, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brass-light);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.container {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.site-header {
+  background: linear-gradient(180deg, var(--rail-light), var(--rail));
+  border-bottom: 3px solid var(--rail-dark);
+  box-shadow: var(--shadow-soft);
+}
+
+.site-header__inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--chalk);
+}
+
+.brand:hover {
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+.brand__mark {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+nav.site-nav {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+nav.site-nav a {
+  color: var(--chalk-dim);
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+nav.site-nav a:hover {
+  color: var(--chalk);
+  background: rgba(255, 255, 255, 0.06);
+  text-decoration: none;
+}
+
+nav.site-nav a.active {
+  color: var(--rail-dark);
+  background: var(--brass);
+}
+
+main {
+  padding: 40px 0 80px;
+}
+
+.site-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px 0;
+  text-align: center;
+}
+
+.site-footer p {
+  color: var(--chalk-faint);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  text-align: center;
+  padding: 20px 0 44px;
+}
+
+.hero__eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+  color: var(--brass-light);
+  margin-bottom: 14px;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  color: var(--chalk);
+  margin-bottom: 0.3em;
+}
+
+.hero p.lead {
+  max-width: 560px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+}
+
+/* ============================================================
+   BALL BADGE — знак места (сигнатурный элемент)
+   ============================================================ */
+.ball-badge {
+  --size: 2.3rem;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--chalk);
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.4), transparent 42%),
+    var(--felt-light);
+  box-shadow: inset 0 -4px 7px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.ball-badge--lg {
+  --size: 3.4rem;
+  font-size: 1.3rem;
+}
+
+.ball-badge.rank-1 {
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.65), transparent 42%),
+    linear-gradient(160deg, var(--brass-light), var(--brass-dark));
+  color: #2b2005;
+  box-shadow: inset 0 -4px 7px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(212, 175, 55, 0.45);
+}
+
+.ball-badge.rank-2 {
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.65), transparent 42%),
+    linear-gradient(160deg, var(--silver-a), var(--silver-b));
+  color: #23282c;
+}
+
+.ball-badge.rank-3 {
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.55), transparent 42%),
+    linear-gradient(160deg, var(--bronze-a), var(--bronze-b));
+  color: #2b1a09;
+}
+
+/* ============================================================
+   PODIUM (топ-3 на главной)
+   ============================================================ */
+.podium {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  align-items: end;
+  margin-bottom: 48px;
+}
+
+.podium__card {
+  background: linear-gradient(165deg, var(--felt-light), var(--felt));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius);
+  padding: 22px 16px 20px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+}
+
+.podium__card--first {
+  padding-top: 30px;
+  padding-bottom: 26px;
+  border-color: rgba(212, 175, 55, 0.35);
+  background: linear-gradient(165deg, var(--felt-lighter), var(--felt));
+  order: 2;
+}
+.podium__card--second { order: 1; }
+.podium__card--third { order: 3; }
+
+.podium__badge {
+  margin: 0 auto 12px;
+}
+
+.podium__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--chalk);
+  margin-bottom: 4px;
+  overflow-wrap: break-word;
+}
+
+.podium__points {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--brass-light);
+}
+
+.podium__points-label {
+  font-size: 0.72rem;
+  color: var(--chalk-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+}
+
+@media (max-width: 640px) {
+  .podium {
+    grid-template-columns: 1fr;
+  }
+  .podium__card--first,
+  .podium__card--second,
+  .podium__card--third {
+    order: 0;
+    padding: 18px 16px;
+  }
+}
+
+/* ============================================================
+   PANEL / CARD
+   ============================================================ */
+.panel {
+  background: linear-gradient(165deg, var(--felt-light), var(--felt));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow-panel);
+  margin-bottom: 28px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.panel-header h2 {
+  margin: 0;
+}
+
+.section-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.section-title h2 {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+table.rating-table {
+  min-width: 560px;
+  background: var(--felt);
+}
+
+.rating-table thead th {
+  background: var(--rail);
+  color: var(--brass-light);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-align: left;
+  padding: 12px 16px;
+  white-space: nowrap;
+}
+
+.rating-table th.num, .rating-table td.num {
+  text-align: right;
+}
+
+.rating-table tbody tr {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background-color 0.12s ease;
+}
+
+.rating-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.rating-table td {
+  padding: 12px 16px;
+  vertical-align: middle;
+}
+
+.rating-table td.place-cell {
+  width: 1%;
+}
+
+.rating-table td.name-cell {
+  font-weight: 700;
+  color: var(--chalk);
+}
+
+.rating-table td.points-cell {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--brass-light);
+}
+
+.rating-table td.muted {
+  color: var(--chalk-faint);
+  font-size: 0.88rem;
+  font-family: var(--font-mono);
+}
+
+.rating-table a.player-link {
+  color: inherit;
+}
+.rating-table a.player-link:hover {
+  color: var(--brass-light);
+}
+
+/* ============================================================
+   TYPE BADGE (мини / мастерс / большой шлем)
+   ============================================================ */
+.type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.76rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.type-badge--mini {
+  background: rgba(174, 187, 174, 0.14);
+  color: var(--chalk-dim);
+}
+
+.type-badge--masters {
+  background: rgba(107, 158, 214, 0.16);
+  color: #9dc4ee;
+}
+
+.type-badge--grand_slam {
+  background: rgba(212, 175, 55, 0.16);
+  color: var(--brass-light);
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 11px 20px;
+  font-weight: 700;
+  font-size: 0.94rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: linear-gradient(160deg, var(--brass-light), var(--brass-dark));
+  color: #2b2005;
+  box-shadow: 0 2px 12px rgba(212, 175, 55, 0.3);
+}
+.btn-primary:hover {
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.45);
+}
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--chalk);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--chalk-dim);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.btn-ghost:hover {
+  color: var(--chalk);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid rgba(193, 80, 74, 0.4);
+  padding: 8px 12px;
+}
+.btn-danger:hover {
+  background: var(--danger-bg);
+}
+
+.btn-large {
+  padding: 14px 28px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+/* ============================================================
+   FORMS
+   ============================================================ */
+.field {
+  margin-bottom: 18px;
+}
+
+.field-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 560px) {
+  .field-group {
+    grid-template-columns: 1fr;
+  }
+}
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--chalk-dim);
+  margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="number"],
+select {
+  width: 100%;
+  background: var(--felt-deep);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-sm);
+  padding: 11px 13px;
+  color: var(--chalk);
+}
+
+input::placeholder {
+  color: var(--chalk-faint);
+}
+
+input:focus, select:focus {
+  border-color: var(--brass);
+}
+
+.hint {
+  font-size: 0.82rem;
+  color: var(--chalk-faint);
+  margin-top: 6px;
+}
+
+.field-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.field-row input {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Player row in admin form */
+.player-row {
+  display: grid;
+  grid-template-columns: 1fr 130px 40px;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+@media (max-width: 560px) {
+  .player-row {
+    grid-template-columns: 1fr 90px 36px;
+  }
+}
+
+.player-row .remove-row-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--chalk-faint);
+  border-radius: var(--radius-sm);
+  width: 40px;
+  height: 42px;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+}
+.player-row .remove-row-btn:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+/* ============================================================
+   MESSAGES
+   ============================================================ */
+.banner {
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.banner-error {
+  background: var(--danger-bg);
+  color: #f0c3c0;
+  border: 1px solid rgba(193, 80, 74, 0.4);
+}
+
+.banner-success {
+  background: var(--success-bg);
+  color: #c9e6cd;
+  border: 1px solid rgba(92, 154, 99, 0.4);
+}
+
+.banner-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--chalk-dim);
+}
+
+.empty-state h3 {
+  color: var(--chalk);
+  margin-bottom: 8px;
+}
+
+/* ============================================================
+   MISC
+   ============================================================ */
+[hidden] {
+  display: none !important;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tournament-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: var(--radius-sm);
+  background: var(--felt);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.tournament-list-item:hover {
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+.tournament-list-item__main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.tournament-list-item__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--chalk);
+}
+
+.tournament-list-item__meta {
+  color: var(--chalk-faint);
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+}
+
+.spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-top-color: var(--brass-light);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-row {
+  text-align: center;
+  padding: 40px;
+  color: var(--chalk-faint);
+}
+
+.breadcrumb {
+  font-size: 0.85rem;
+  color: var(--chalk-faint);
+  margin-bottom: 18px;
+}
+.breadcrumb a {
+  color: var(--chalk-dim);
+}
+
+.tournament-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.tournament-header__date {
+  color: var(--chalk-faint);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
