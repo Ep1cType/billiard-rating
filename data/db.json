@@ -105,6 +105,62 @@
           "points": 45
         }
       ]
+    },
+    {
+      "id": "t_mslzaskn13iwiw",
+      "name": "Мастерс",
+      "date": "2026-08-10",
+      "type": "masters",
+      "results": [
+        {
+          "playerId": "p_mslz724lu68m57",
+          "points": 90
+        },
+        {
+          "playerId": "p_mslz724lpmhfzn",
+          "points": 90
+        },
+        {
+          "playerId": "p_mslz724l3p2tih",
+          "points": 90
+        },
+        {
+          "playerId": "p_mslz724lcmvq4o",
+          "points": 90
+        },
+        {
+          "playerId": "p_mslz724lkbf9tw",
+          "points": 180
+        },
+        {
+          "playerId": "p_mslz724l5tdf4q",
+          "points": 180
+        },
+        {
+          "playerId": "p_mslz724lhi9ljt",
+          "points": 180
+        },
+        {
+          "playerId": "p_mslz724ldedi3z",
+          "points": 180
+        },
+        {
+          "playerId": "p_mslz724lsnzv2f",
+          "points": 360
+        },
+        {
+          "playerId": "p_mslz724lmg0e4t",
+          "points": 360
+        },
+        {
+          "playerId": "p_mslz724lhk1b4t",
+          "points": 600
+        },
+        {
+          "playerId": "p_mslz724l4a3y7t",
+          "points": 1000
+        }
+      ]
     }
   ]
 }
