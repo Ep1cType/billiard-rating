@@ -1,4 +1,110 @@
 {
-  "players": [],
-  "tournaments": []
+  "players": [
+    {
+      "id": "p_mslz724lpmhfzn",
+      "name": "Черных Денис"
+    },
+    {
+      "id": "p_mslz724lu68m57",
+      "name": "Зимирев Олег"
+    },
+    {
+      "id": "p_mslz724l3p2tih",
+      "name": "Гешев Вадим"
+    },
+    {
+      "id": "p_mslz724lcmvq4o",
+      "name": "Гаджиев Кирилл"
+    },
+    {
+      "id": "p_mslz724lkbf9tw",
+      "name": "Абыев Расим"
+    },
+    {
+      "id": "p_mslz724l5tdf4q",
+      "name": "Гарчу Евгений"
+    },
+    {
+      "id": "p_mslz724lhi9ljt",
+      "name": "Иванов Игорь"
+    },
+    {
+      "id": "p_mslz724ldedi3z",
+      "name": "Радыгин Владимир"
+    },
+    {
+      "id": "p_mslz724lsnzv2f",
+      "name": "Петров Евгений"
+    },
+    {
+      "id": "p_mslz724lmg0e4t",
+      "name": "Сериков Дмитрий"
+    },
+    {
+      "id": "p_mslz724lhk1b4t",
+      "name": "Албанов Артём"
+    },
+    {
+      "id": "p_mslz724l4a3y7t",
+      "name": "Михалков Михаил"
+    }
+  ],
+  "tournaments": [
+    {
+      "id": "t_mslz724lfnqed0",
+      "name": "Мини турнир",
+      "date": "2026-08-09",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p_mslz724lpmhfzn",
+          "points": 500
+        },
+        {
+          "playerId": "p_mslz724lu68m57",
+          "points": 300
+        },
+        {
+          "playerId": "p_mslz724l3p2tih",
+          "points": 180
+        },
+        {
+          "playerId": "p_mslz724lcmvq4o",
+          "points": 180
+        },
+        {
+          "playerId": "p_mslz724lkbf9tw",
+          "points": 90
+        },
+        {
+          "playerId": "p_mslz724l5tdf4q",
+          "points": 90
+        },
+        {
+          "playerId": "p_mslz724lhi9ljt",
+          "points": 90
+        },
+        {
+          "playerId": "p_mslz724ldedi3z",
+          "points": 90
+        },
+        {
+          "playerId": "p_mslz724lsnzv2f",
+          "points": 45
+        },
+        {
+          "playerId": "p_mslz724lmg0e4t",
+          "points": 45
+        },
+        {
+          "playerId": "p_mslz724lhk1b4t",
+          "points": 45
+        },
+        {
+          "playerId": "p_mslz724l4a3y7t",
+          "points": 45
+        }
+      ]
+    }
+  ]
 }
