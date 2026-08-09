@@ -1,164 +1,2192 @@
 {
   "players": [
     {
-      "id": "p_mslz724lpmhfzn",
-      "name": "Черных Денис"
-    },
-    {
-      "id": "p_mslz724lu68m57",
-      "name": "Зимирев Олег"
-    },
-    {
-      "id": "p_mslz724l3p2tih",
-      "name": "Гешев Вадим"
-    },
-    {
-      "id": "p_mslz724lcmvq4o",
-      "name": "Гаджиев Кирилл"
-    },
-    {
-      "id": "p_mslz724lkbf9tw",
-      "name": "Абыев Расим"
-    },
-    {
-      "id": "p_mslz724l5tdf4q",
-      "name": "Гарчу Евгений"
-    },
-    {
-      "id": "p_mslz724lhi9ljt",
+      "id": "p001",
       "name": "Иванов Игорь"
     },
     {
-      "id": "p_mslz724ldedi3z",
+      "id": "p002",
+      "name": "Зимирев Олег"
+    },
+    {
+      "id": "p003",
       "name": "Радыгин Владимир"
     },
     {
-      "id": "p_mslz724lsnzv2f",
-      "name": "Петров Евгений"
+      "id": "p004",
+      "name": "Жамбалов Александр"
     },
     {
-      "id": "p_mslz724lmg0e4t",
-      "name": "Сериков Дмитрий"
+      "id": "p005",
+      "name": "Якушевич Игорь"
     },
     {
-      "id": "p_mslz724lhk1b4t",
-      "name": "Албанов Артём"
+      "id": "p006",
+      "name": "Кочнев Геннадий"
     },
     {
-      "id": "p_mslz724l4a3y7t",
-      "name": "Михалков Михаил"
+      "id": "p007",
+      "name": "Щербаченко Глеб"
+    },
+    {
+      "id": "p008",
+      "name": "Елагин Алексей"
+    },
+    {
+      "id": "p009",
+      "name": "Замаратских Семен"
+    },
+    {
+      "id": "p010",
+      "name": "Ромашин Алексей"
+    },
+    {
+      "id": "p011",
+      "name": "Аносов Вячеслав"
+    },
+    {
+      "id": "p012",
+      "name": "Кочнев Артем"
+    },
+    {
+      "id": "p013",
+      "name": "Лобанов Станислав"
+    },
+    {
+      "id": "p014",
+      "name": "Бергомитский Денис"
+    },
+    {
+      "id": "p015",
+      "name": "Клюев Леонид"
+    },
+    {
+      "id": "p016",
+      "name": "Каримов Сергей"
+    },
+    {
+      "id": "p017",
+      "name": "Нуралиев Хотамжан"
+    },
+    {
+      "id": "p018",
+      "name": "Кирейченко Владимир"
+    },
+    {
+      "id": "p019",
+      "name": "Марков Владимир"
+    },
+    {
+      "id": "p020",
+      "name": "Островский Артем"
+    },
+    {
+      "id": "p021",
+      "name": "Куликов Артем"
+    },
+    {
+      "id": "p022",
+      "name": "Лыков Анатолий"
+    },
+    {
+      "id": "p023",
+      "name": "Карев Дмитрий"
+    },
+    {
+      "id": "p024",
+      "name": "Якубов Алишер"
+    },
+    {
+      "id": "p025",
+      "name": "Трушников Денис"
+    },
+    {
+      "id": "p026",
+      "name": "Митькин Евгений"
+    },
+    {
+      "id": "p027",
+      "name": "Романов Дмитрий"
+    },
+    {
+      "id": "p028",
+      "name": "Гвенетадзе Артем"
+    },
+    {
+      "id": "p029",
+      "name": "Карев Сергей"
+    },
+    {
+      "id": "p030",
+      "name": "Матюхин Вячеслав"
+    },
+    {
+      "id": "p031",
+      "name": "Вохнин Константин"
+    },
+    {
+      "id": "p032",
+      "name": "Поспелов Андрей"
+    },
+    {
+      "id": "p033",
+      "name": "Кляус Анатолий"
+    },
+    {
+      "id": "p034",
+      "name": "Горохов Руслан"
+    },
+    {
+      "id": "p035",
+      "name": "Барах Александр"
+    },
+    {
+      "id": "p036",
+      "name": "Проворов Олег"
+    },
+    {
+      "id": "p037",
+      "name": "Галактионов Александр"
+    },
+    {
+      "id": "p038",
+      "name": "Чванов Максим"
+    },
+    {
+      "id": "p039",
+      "name": "Бережная Ирина"
+    },
+    {
+      "id": "p040",
+      "name": "Ороховский Антон"
+    },
+    {
+      "id": "p041",
+      "name": "Аксенов Александр"
+    },
+    {
+      "id": "p042",
+      "name": "Фоменко Сергей"
+    },
+    {
+      "id": "p043",
+      "name": "Петров Дмитрий"
+    },
+    {
+      "id": "p044",
+      "name": "Васильев Александр"
+    },
+    {
+      "id": "p045",
+      "name": "Екимов Анатолий"
+    },
+    {
+      "id": "p046",
+      "name": "Еленец Артем"
+    },
+    {
+      "id": "p047",
+      "name": "Зверев Антон"
+    },
+    {
+      "id": "p048",
+      "name": "Шевченко Георгий"
+    },
+    {
+      "id": "p049",
+      "name": "Зарубин Владимир"
+    },
+    {
+      "id": "p050",
+      "name": "Быков Владимир"
+    },
+    {
+      "id": "p051",
+      "name": "Кучкаров Отабек"
+    },
+    {
+      "id": "p052",
+      "name": "Новицкая Наталия"
+    },
+    {
+      "id": "p053",
+      "name": "Касымханов Шерхан"
+    },
+    {
+      "id": "p054",
+      "name": "Алексеев Михаил"
+    },
+    {
+      "id": "p055",
+      "name": "Бергомитский Михаил"
+    },
+    {
+      "id": "p056",
+      "name": "Игнатьев Вадим"
+    },
+    {
+      "id": "p057",
+      "name": "Колышкин Эдуард"
+    },
+    {
+      "id": "p058",
+      "name": "Миранчук Павел"
+    },
+    {
+      "id": "p059",
+      "name": "Бутенко Владимир"
+    },
+    {
+      "id": "p060",
+      "name": "Гаджиев Кирилл"
+    },
+    {
+      "id": "p061",
+      "name": "Гешев Вадим"
+    },
+    {
+      "id": "p062",
+      "name": "Голиков Сергей"
+    },
+    {
+      "id": "p063",
+      "name": "Гололобов Андрей"
+    },
+    {
+      "id": "p064",
+      "name": "Сурский Дмитрий"
     }
   ],
   "tournaments": [
     {
-      "id": "t_mslz724lfnqed0",
-      "name": "Мини турнир",
-      "date": "2026-08-09",
+      "id": "t01",
+      "name": "Тур 1 — Свободная пирамида",
+      "date": "2026-01-11",
       "type": "mini",
       "results": [
         {
-          "playerId": "p_mslz724lpmhfzn",
-          "points": 500
-        },
-        {
-          "playerId": "p_mslz724lu68m57",
+          "playerId": "p002",
           "points": 300
         },
         {
-          "playerId": "p_mslz724l3p2tih",
+          "playerId": "p003",
+          "points": 500
+        },
+        {
+          "playerId": "p004",
           "points": 180
         },
         {
-          "playerId": "p_mslz724lcmvq4o",
+          "playerId": "p006",
+          "points": 90
+        },
+        {
+          "playerId": "p008",
           "points": 180
         },
         {
-          "playerId": "p_mslz724lkbf9tw",
+          "playerId": "p014",
           "points": 90
         },
         {
-          "playerId": "p_mslz724l5tdf4q",
-          "points": 90
+          "playerId": "p020",
+          "points": 25
         },
         {
-          "playerId": "p_mslz724lhi9ljt",
-          "points": 90
-        },
-        {
-          "playerId": "p_mslz724ldedi3z",
-          "points": 90
-        },
-        {
-          "playerId": "p_mslz724lsnzv2f",
+          "playerId": "p027",
           "points": 45
         },
         {
-          "playerId": "p_mslz724lmg0e4t",
+          "playerId": "p033",
+          "points": 25
+        },
+        {
+          "playerId": "p036",
+          "points": 25
+        },
+        {
+          "playerId": "p040",
+          "points": 25
+        },
+        {
+          "playerId": "p064",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t02",
+      "name": "Тур 2 — Комбинированная пирамида с продолжением",
+      "date": "2026-01-18",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p002",
+          "points": 500
+        },
+        {
+          "playerId": "p006",
+          "points": 90
+        },
+        {
+          "playerId": "p008",
+          "points": 180
+        },
+        {
+          "playerId": "p018",
           "points": 45
         },
         {
-          "playerId": "p_mslz724lhk1b4t",
+          "playerId": "p020",
+          "points": 25
+        },
+        {
+          "playerId": "p023",
           "points": 45
         },
         {
-          "playerId": "p_mslz724l4a3y7t",
+          "playerId": "p027",
+          "points": 25
+        },
+        {
+          "playerId": "p028",
+          "points": 90
+        },
+        {
+          "playerId": "p033",
+          "points": 300
+        },
+        {
+          "playerId": "p038",
+          "points": 25
+        },
+        {
+          "playerId": "p041",
+          "points": 25
+        },
+        {
+          "playerId": "p049",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t03",
+      "name": "Тур 3 — Свободная пирамида",
+      "date": "2026-01-24",
+      "type": "masters",
+      "results": [
+        {
+          "playerId": "p002",
+          "points": 360
+        },
+        {
+          "playerId": "p005",
+          "points": 180
+        },
+        {
+          "playerId": "p008",
+          "points": 600
+        },
+        {
+          "playerId": "p009",
+          "points": 1000
+        },
+        {
+          "playerId": "p011",
+          "points": 180
+        },
+        {
+          "playerId": "p013",
+          "points": 90
+        },
+        {
+          "playerId": "p014",
+          "points": 360
+        },
+        {
+          "playerId": "p019",
+          "points": 90
+        },
+        {
+          "playerId": "p020",
+          "points": 180
+        },
+        {
+          "playerId": "p027",
+          "points": 25
+        },
+        {
+          "playerId": "p038",
+          "points": 15
+        },
+        {
+          "playerId": "p040",
+          "points": 90
+        },
+        {
+          "playerId": "p041",
+          "points": 25
+        },
+        {
+          "playerId": "p044",
           "points": 45
         }
       ]
     },
     {
-      "id": "t_mslzaskn13iwiw",
-      "name": "Мастерс",
-      "date": "2026-08-10",
+      "id": "t04",
+      "name": "Тур 4 — Динамичная пирамида с продолжением",
+      "date": "2026-02-01",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 500
+        },
+        {
+          "playerId": "p003",
+          "points": 300
+        },
+        {
+          "playerId": "p006",
+          "points": 90
+        },
+        {
+          "playerId": "p008",
+          "points": 180
+        },
+        {
+          "playerId": "p011",
+          "points": 90
+        },
+        {
+          "playerId": "p013",
+          "points": 180
+        },
+        {
+          "playerId": "p016",
+          "points": 45
+        },
+        {
+          "playerId": "p019",
+          "points": 90
+        },
+        {
+          "playerId": "p025",
+          "points": 45
+        },
+        {
+          "playerId": "p027",
+          "points": 25
+        },
+        {
+          "playerId": "p028",
+          "points": 45
+        },
+        {
+          "playerId": "p036",
+          "points": 25
+        },
+        {
+          "playerId": "p049",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t05",
+      "name": "Тур 5 — Свободная пирамида",
+      "date": "2026-02-08",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p006",
+          "points": 500
+        },
+        {
+          "playerId": "p009",
+          "points": 180
+        },
+        {
+          "playerId": "p021",
+          "points": 45
+        },
+        {
+          "playerId": "p024",
+          "points": 25
+        },
+        {
+          "playerId": "p028",
+          "points": 25
+        },
+        {
+          "playerId": "p048",
+          "points": 90
+        }
+      ]
+    },
+    {
+      "id": "t06",
+      "name": "Тур 6 — Комбинированная пирамида с продолжением",
+      "date": "2026-02-15",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p003",
+          "points": 500
+        },
+        {
+          "playerId": "p007",
+          "points": 300
+        },
+        {
+          "playerId": "p014",
+          "points": 90
+        },
+        {
+          "playerId": "p016",
+          "points": 45
+        },
+        {
+          "playerId": "p018",
+          "points": 180
+        },
+        {
+          "playerId": "p020",
+          "points": 45
+        },
+        {
+          "playerId": "p021",
+          "points": 45
+        },
+        {
+          "playerId": "p023",
+          "points": 90
+        },
+        {
+          "playerId": "p024",
+          "points": 90
+        },
+        {
+          "playerId": "p026",
+          "points": 45
+        },
+        {
+          "playerId": "p036",
+          "points": 45
+        },
+        {
+          "playerId": "p051",
+          "points": 45
+        }
+      ]
+    },
+    {
+      "id": "t07",
+      "name": "Тур 7",
+      "date": "2026-03-21",
+      "type": "grand_slam",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 2000
+        },
+        {
+          "playerId": "p003",
+          "points": 720
+        },
+        {
+          "playerId": "p004",
+          "points": 1200
+        },
+        {
+          "playerId": "p007",
+          "points": 720
+        },
+        {
+          "playerId": "p008",
+          "points": 180
+        },
+        {
+          "playerId": "p011",
+          "points": 360
+        },
+        {
+          "playerId": "p013",
+          "points": 90
+        },
+        {
+          "playerId": "p016",
+          "points": 360
+        },
+        {
+          "playerId": "p020",
+          "points": 90
+        },
+        {
+          "playerId": "p021",
+          "points": 180
+        },
+        {
+          "playerId": "p023",
+          "points": 90
+        },
+        {
+          "playerId": "p024",
+          "points": 360
+        },
+        {
+          "playerId": "p026",
+          "points": 180
+        },
+        {
+          "playerId": "p028",
+          "points": 45
+        },
+        {
+          "playerId": "p031",
+          "points": 360
+        },
+        {
+          "playerId": "p034",
+          "points": 45
+        },
+        {
+          "playerId": "p038",
+          "points": 45
+        },
+        {
+          "playerId": "p044",
+          "points": 45
+        },
+        {
+          "playerId": "p046",
+          "points": 90
+        }
+      ]
+    },
+    {
+      "id": "t08",
+      "name": "Тур 8 — Свободная пирамида с продолжением",
+      "date": "2026-03-01",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p004",
+          "points": 500
+        },
+        {
+          "playerId": "p005",
+          "points": 180
+        },
+        {
+          "playerId": "p007",
+          "points": 300
+        },
+        {
+          "playerId": "p008",
+          "points": 180
+        },
+        {
+          "playerId": "p013",
+          "points": 45
+        },
+        {
+          "playerId": "p015",
+          "points": 25
+        },
+        {
+          "playerId": "p017",
+          "points": 90
+        },
+        {
+          "playerId": "p020",
+          "points": 90
+        },
+        {
+          "playerId": "p024",
+          "points": 25
+        },
+        {
+          "playerId": "p027",
+          "points": 90
+        },
+        {
+          "playerId": "p028",
+          "points": 25
+        },
+        {
+          "playerId": "p030",
+          "points": 25
+        },
+        {
+          "playerId": "p040",
+          "points": 25
+        },
+        {
+          "playerId": "p051",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t09",
+      "name": "Тур 9 — Свободная пирамида",
+      "date": "2026-03-07",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p003",
+          "points": 500
+        },
+        {
+          "playerId": "p005",
+          "points": 300
+        },
+        {
+          "playerId": "p007",
+          "points": 90
+        },
+        {
+          "playerId": "p015",
+          "points": 90
+        },
+        {
+          "playerId": "p018",
+          "points": 180
+        },
+        {
+          "playerId": "p020",
+          "points": 45
+        },
+        {
+          "playerId": "p021",
+          "points": 25
+        },
+        {
+          "playerId": "p024",
+          "points": 90
+        },
+        {
+          "playerId": "p028",
+          "points": 25
+        },
+        {
+          "playerId": "p029",
+          "points": 25
+        },
+        {
+          "playerId": "p030",
+          "points": 45
+        },
+        {
+          "playerId": "p032",
+          "points": 25
+        },
+        {
+          "playerId": "p036",
+          "points": 45
+        },
+        {
+          "playerId": "p038",
+          "points": 45
+        },
+        {
+          "playerId": "p039",
+          "points": 45
+        },
+        {
+          "playerId": "p050",
+          "points": 25
+        },
+        {
+          "playerId": "p059",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t10",
+      "name": "Тур 10 — Динамичная пирамида с продолжением",
+      "date": "2026-03-15",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 500
+        },
+        {
+          "playerId": "p002",
+          "points": 300
+        },
+        {
+          "playerId": "p007",
+          "points": 90
+        },
+        {
+          "playerId": "p013",
+          "points": 90
+        },
+        {
+          "playerId": "p014",
+          "points": 90
+        },
+        {
+          "playerId": "p018",
+          "points": 180
+        },
+        {
+          "playerId": "p019",
+          "points": 45
+        },
+        {
+          "playerId": "p020",
+          "points": 25
+        },
+        {
+          "playerId": "p024",
+          "points": 25
+        },
+        {
+          "playerId": "p025",
+          "points": 45
+        },
+        {
+          "playerId": "p028",
+          "points": 25
+        },
+        {
+          "playerId": "p032",
+          "points": 25
+        },
+        {
+          "playerId": "p034",
+          "points": 25
+        },
+        {
+          "playerId": "p038",
+          "points": 25
+        },
+        {
+          "playerId": "p041",
+          "points": 45
+        }
+      ]
+    },
+    {
+      "id": "t11",
+      "name": "Тур 11 — Свободная пирамида",
+      "date": "2026-03-22",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p003",
+          "points": 500
+        },
+        {
+          "playerId": "p004",
+          "points": 300
+        },
+        {
+          "playerId": "p005",
+          "points": 180
+        },
+        {
+          "playerId": "p011",
+          "points": 90
+        },
+        {
+          "playerId": "p012",
+          "points": 90
+        },
+        {
+          "playerId": "p014",
+          "points": 45
+        },
+        {
+          "playerId": "p016",
+          "points": 45
+        },
+        {
+          "playerId": "p017",
+          "points": 90
+        },
+        {
+          "playerId": "p021",
+          "points": 25
+        },
+        {
+          "playerId": "p023",
+          "points": 45
+        },
+        {
+          "playerId": "p028",
+          "points": 25
+        },
+        {
+          "playerId": "p029",
+          "points": 25
+        },
+        {
+          "playerId": "p030",
+          "points": 25
+        },
+        {
+          "playerId": "p034",
+          "points": 45
+        },
+        {
+          "playerId": "p036",
+          "points": 25
+        },
+        {
+          "playerId": "p040",
+          "points": 45
+        },
+        {
+          "playerId": "p058",
+          "points": 45
+        },
+        {
+          "playerId": "p060",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t12",
+      "name": "Тур 12 — Комбинированная пирамида",
+      "date": "2026-03-28",
       "type": "masters",
       "results": [
         {
-          "playerId": "p_mslz724lu68m57",
-          "points": 90
-        },
-        {
-          "playerId": "p_mslz724lpmhfzn",
-          "points": 90
-        },
-        {
-          "playerId": "p_mslz724l3p2tih",
-          "points": 90
-        },
-        {
-          "playerId": "p_mslz724lcmvq4o",
-          "points": 90
-        },
-        {
-          "playerId": "p_mslz724lkbf9tw",
+          "playerId": "p001",
           "points": 180
         },
         {
-          "playerId": "p_mslz724l5tdf4q",
-          "points": 180
+          "playerId": "p003",
+          "points": 1000
         },
         {
-          "playerId": "p_mslz724lhi9ljt",
-          "points": 180
-        },
-        {
-          "playerId": "p_mslz724ldedi3z",
-          "points": 180
-        },
-        {
-          "playerId": "p_mslz724lsnzv2f",
+          "playerId": "p004",
           "points": 360
         },
         {
-          "playerId": "p_mslz724lmg0e4t",
-          "points": 360
-        },
-        {
-          "playerId": "p_mslz724lhk1b4t",
+          "playerId": "p006",
           "points": 600
         },
         {
-          "playerId": "p_mslz724l4a3y7t",
+          "playerId": "p007",
+          "points": 360
+        },
+        {
+          "playerId": "p011",
+          "points": 180
+        },
+        {
+          "playerId": "p013",
+          "points": 45
+        },
+        {
+          "playerId": "p014",
+          "points": 45
+        },
+        {
+          "playerId": "p015",
+          "points": 45
+        },
+        {
+          "playerId": "p018",
+          "points": 180
+        },
+        {
+          "playerId": "p019",
+          "points": 25
+        },
+        {
+          "playerId": "p020",
+          "points": 90
+        },
+        {
+          "playerId": "p021",
+          "points": 25
+        },
+        {
+          "playerId": "p028",
+          "points": 25
+        },
+        {
+          "playerId": "p029",
+          "points": 15
+        },
+        {
+          "playerId": "p030",
+          "points": 25
+        },
+        {
+          "playerId": "p034",
+          "points": 15
+        },
+        {
+          "playerId": "p037",
+          "points": 90
+        },
+        {
+          "playerId": "p038",
+          "points": 15
+        },
+        {
+          "playerId": "p041",
+          "points": 45
+        }
+      ]
+    },
+    {
+      "id": "t13",
+      "name": "Тур 13 — Свободная пирамида",
+      "date": "2026-04-05",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p005",
+          "points": 500
+        },
+        {
+          "playerId": "p006",
+          "points": 300
+        },
+        {
+          "playerId": "p008",
+          "points": 90
+        },
+        {
+          "playerId": "p012",
+          "points": 45
+        },
+        {
+          "playerId": "p013",
+          "points": 45
+        },
+        {
+          "playerId": "p016",
+          "points": 45
+        },
+        {
+          "playerId": "p017",
+          "points": 180
+        },
+        {
+          "playerId": "p018",
+          "points": 25
+        },
+        {
+          "playerId": "p019",
+          "points": 90
+        },
+        {
+          "playerId": "p020",
+          "points": 90
+        },
+        {
+          "playerId": "p022",
+          "points": 25
+        },
+        {
+          "playerId": "p027",
+          "points": 45
+        },
+        {
+          "playerId": "p028",
+          "points": 25
+        },
+        {
+          "playerId": "p029",
+          "points": 25
+        },
+        {
+          "playerId": "p032",
+          "points": 45
+        },
+        {
+          "playerId": "p036",
+          "points": 25
+        },
+        {
+          "playerId": "p038",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t14",
+      "name": "Тур 14 — Комбинированная пирамида с продолжением",
+      "date": "2026-04-12",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 300
+        },
+        {
+          "playerId": "p004",
+          "points": 500
+        },
+        {
+          "playerId": "p005",
+          "points": 180
+        },
+        {
+          "playerId": "p006",
+          "points": 180
+        },
+        {
+          "playerId": "p007",
+          "points": 90
+        },
+        {
+          "playerId": "p012",
+          "points": 45
+        },
+        {
+          "playerId": "p014",
+          "points": 45
+        },
+        {
+          "playerId": "p018",
+          "points": 25
+        },
+        {
+          "playerId": "p022",
+          "points": 90
+        },
+        {
+          "playerId": "p025",
+          "points": 90
+        },
+        {
+          "playerId": "p027",
+          "points": 45
+        },
+        {
+          "playerId": "p029",
+          "points": 25
+        },
+        {
+          "playerId": "p030",
+          "points": 25
+        },
+        {
+          "playerId": "p032",
+          "points": 25
+        },
+        {
+          "playerId": "p038",
+          "points": 25
+        },
+        {
+          "playerId": "p052",
+          "points": 45
+        },
+        {
+          "playerId": "p054",
+          "points": 45
+        },
+        {
+          "playerId": "p055",
+          "points": 45
+        },
+        {
+          "playerId": "p056",
+          "points": 45
+        },
+        {
+          "playerId": "p062",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t15",
+      "name": "Тур 15 — Динамичная пирамида с продолжением",
+      "date": "2026-04-19",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p003",
+          "points": 500
+        },
+        {
+          "playerId": "p004",
+          "points": 90
+        },
+        {
+          "playerId": "p005",
+          "points": 180
+        },
+        {
+          "playerId": "p006",
+          "points": 90
+        },
+        {
+          "playerId": "p008",
+          "points": 300
+        },
+        {
+          "playerId": "p012",
+          "points": 90
+        },
+        {
+          "playerId": "p014",
+          "points": 45
+        },
+        {
+          "playerId": "p017",
+          "points": 90
+        },
+        {
+          "playerId": "p019",
+          "points": 45
+        },
+        {
+          "playerId": "p022",
+          "points": 25
+        },
+        {
+          "playerId": "p025",
+          "points": 25
+        },
+        {
+          "playerId": "p027",
+          "points": 25
+        },
+        {
+          "playerId": "p029",
+          "points": 25
+        },
+        {
+          "playerId": "p030",
+          "points": 45
+        },
+        {
+          "playerId": "p032",
+          "points": 25
+        },
+        {
+          "playerId": "p035",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t16",
+      "name": "Тур 16 — Свободная пирамида",
+      "date": "2026-04-25",
+      "type": "grand_slam",
+      "results": [
+        {
+          "playerId": "p002",
+          "points": 2000
+        },
+        {
+          "playerId": "p003",
+          "points": 360
+        },
+        {
+          "playerId": "p004",
+          "points": 180
+        },
+        {
+          "playerId": "p005",
+          "points": 1200
+        },
+        {
+          "playerId": "p006",
+          "points": 720
+        },
+        {
+          "playerId": "p007",
+          "points": 360
+        },
+        {
+          "playerId": "p009",
+          "points": 720
+        },
+        {
+          "playerId": "p011",
+          "points": 180
+        },
+        {
+          "playerId": "p012",
+          "points": 360
+        },
+        {
+          "playerId": "p013",
+          "points": 180
+        },
+        {
+          "playerId": "p014",
+          "points": 180
+        },
+        {
+          "playerId": "p016",
+          "points": 180
+        },
+        {
+          "playerId": "p017",
+          "points": 90
+        },
+        {
+          "playerId": "p019",
+          "points": 180
+        },
+        {
+          "playerId": "p022",
+          "points": 90
+        },
+        {
+          "playerId": "p023",
+          "points": 90
+        },
+        {
+          "playerId": "p025",
+          "points": 180
+        },
+        {
+          "playerId": "p026",
+          "points": 45
+        },
+        {
+          "playerId": "p028",
+          "points": 45
+        },
+        {
+          "playerId": "p029",
+          "points": 90
+        },
+        {
+          "playerId": "p030",
+          "points": 90
+        },
+        {
+          "playerId": "p034",
+          "points": 90
+        },
+        {
+          "playerId": "p035",
+          "points": 180
+        },
+        {
+          "playerId": "p040",
+          "points": 45
+        },
+        {
+          "playerId": "p047",
+          "points": 90
+        },
+        {
+          "playerId": "p050",
+          "points": 45
+        },
+        {
+          "playerId": "p057",
+          "points": 45
+        }
+      ]
+    },
+    {
+      "id": "t17",
+      "name": "Тур 17 — Свободная пирамида с продолжением",
+      "date": "2026-05-03",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p002",
+          "points": 500
+        },
+        {
+          "playerId": "p007",
+          "points": 90
+        },
+        {
+          "playerId": "p012",
+          "points": 180
+        },
+        {
+          "playerId": "p013",
+          "points": 300
+        },
+        {
+          "playerId": "p015",
+          "points": 180
+        },
+        {
+          "playerId": "p020",
+          "points": 90
+        },
+        {
+          "playerId": "p022",
+          "points": 45
+        },
+        {
+          "playerId": "p025",
+          "points": 90
+        },
+        {
+          "playerId": "p026",
+          "points": 25
+        },
+        {
+          "playerId": "p027",
+          "points": 25
+        },
+        {
+          "playerId": "p029",
+          "points": 25
+        },
+        {
+          "playerId": "p035",
+          "points": 25
+        },
+        {
+          "playerId": "p039",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t18",
+      "name": "Тур 18 — Комбинированная пирамида",
+      "date": "2026-05-10",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 500
+        },
+        {
+          "playerId": "p002",
+          "points": 300
+        },
+        {
+          "playerId": "p007",
+          "points": 90
+        },
+        {
+          "playerId": "p008",
+          "points": 180
+        },
+        {
+          "playerId": "p010",
+          "points": 90
+        },
+        {
+          "playerId": "p012",
+          "points": 90
+        },
+        {
+          "playerId": "p013",
+          "points": 180
+        },
+        {
+          "playerId": "p015",
+          "points": 25
+        },
+        {
+          "playerId": "p016",
+          "points": 45
+        },
+        {
+          "playerId": "p018",
+          "points": 90
+        },
+        {
+          "playerId": "p019",
+          "points": 45
+        },
+        {
+          "playerId": "p020",
+          "points": 45
+        },
+        {
+          "playerId": "p021",
+          "points": 25
+        },
+        {
+          "playerId": "p022",
+          "points": 25
+        },
+        {
+          "playerId": "p026",
+          "points": 25
+        },
+        {
+          "playerId": "p029",
+          "points": 25
+        },
+        {
+          "playerId": "p030",
+          "points": 45
+        },
+        {
+          "playerId": "p032",
+          "points": 45
+        },
+        {
+          "playerId": "p041",
+          "points": 45
+        },
+        {
+          "playerId": "p042",
+          "points": 25
+        },
+        {
+          "playerId": "p043",
+          "points": 25
+        },
+        {
+          "playerId": "p049",
+          "points": 25
+        },
+        {
+          "playerId": "p061",
+          "points": 25
+        },
+        {
+          "playerId": "p063",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t19",
+      "name": "Тур 19 — Свободная пирамида",
+      "date": "2026-05-17",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p003",
+          "points": 500
+        },
+        {
+          "playerId": "p004",
+          "points": 180
+        },
+        {
+          "playerId": "p006",
+          "points": 300
+        },
+        {
+          "playerId": "p011",
+          "points": 90
+        },
+        {
+          "playerId": "p012",
+          "points": 90
+        },
+        {
+          "playerId": "p014",
+          "points": 90
+        },
+        {
+          "playerId": "p015",
+          "points": 25
+        },
+        {
+          "playerId": "p016",
+          "points": 45
+        },
+        {
+          "playerId": "p019",
+          "points": 25
+        },
+        {
+          "playerId": "p023",
+          "points": 45
+        },
+        {
+          "playerId": "p029",
+          "points": 25
+        },
+        {
+          "playerId": "p034",
+          "points": 25
+        },
+        {
+          "playerId": "p036",
+          "points": 25
+        },
+        {
+          "playerId": "p039",
+          "points": 25
+        },
+        {
+          "playerId": "p047",
+          "points": 45
+        }
+      ]
+    },
+    {
+      "id": "t20",
+      "name": "Тур 20",
+      "date": "2026-05-24",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 500
+        },
+        {
+          "playerId": "p004",
+          "points": 180
+        },
+        {
+          "playerId": "p005",
+          "points": 90
+        },
+        {
+          "playerId": "p008",
+          "points": 90
+        },
+        {
+          "playerId": "p013",
+          "points": 25
+        },
+        {
+          "playerId": "p015",
+          "points": 300
+        },
+        {
+          "playerId": "p017",
+          "points": 90
+        },
+        {
+          "playerId": "p019",
+          "points": 45
+        },
+        {
+          "playerId": "p026",
+          "points": 45
+        },
+        {
+          "playerId": "p034",
+          "points": 25
+        },
+        {
+          "playerId": "p035",
+          "points": 25
+        },
+        {
+          "playerId": "p038",
+          "points": 45
+        },
+        {
+          "playerId": "p039",
+          "points": 25
+        },
+        {
+          "playerId": "p047",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t21",
+      "name": "Тур 21 — Динамичная пирамида",
+      "date": "2026-05-30",
+      "type": "masters",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 360
+        },
+        {
+          "playerId": "p002",
+          "points": 180
+        },
+        {
+          "playerId": "p003",
+          "points": 360
+        },
+        {
+          "playerId": "p005",
+          "points": 180
+        },
+        {
+          "playerId": "p007",
+          "points": 180
+        },
+        {
+          "playerId": "p009",
+          "points": 600
+        },
+        {
+          "playerId": "p010",
           "points": 1000
+        },
+        {
+          "playerId": "p011",
+          "points": 90
+        },
+        {
+          "playerId": "p012",
+          "points": 90
+        },
+        {
+          "playerId": "p015",
+          "points": 180
+        },
+        {
+          "playerId": "p016",
+          "points": 45
+        },
+        {
+          "playerId": "p017",
+          "points": 45
+        },
+        {
+          "playerId": "p019",
+          "points": 90
+        },
+        {
+          "playerId": "p021",
+          "points": 25
+        },
+        {
+          "playerId": "p022",
+          "points": 90
+        },
+        {
+          "playerId": "p023",
+          "points": 45
+        },
+        {
+          "playerId": "p026",
+          "points": 25
+        },
+        {
+          "playerId": "p030",
+          "points": 45
+        },
+        {
+          "playerId": "p032",
+          "points": 25
+        },
+        {
+          "playerId": "p034",
+          "points": 25
+        },
+        {
+          "playerId": "p039",
+          "points": 25
+        },
+        {
+          "playerId": "p047",
+          "points": 25
+        },
+        {
+          "playerId": "p052",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t22",
+      "name": "Тур 22 — Свободная пирамида с продолжением",
+      "date": "2026-06-07",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p002",
+          "points": 500
+        },
+        {
+          "playerId": "p004",
+          "points": 180
+        },
+        {
+          "playerId": "p011",
+          "points": 45
+        },
+        {
+          "playerId": "p012",
+          "points": 300
+        },
+        {
+          "playerId": "p016",
+          "points": 45
+        },
+        {
+          "playerId": "p017",
+          "points": 180
+        },
+        {
+          "playerId": "p021",
+          "points": 90
+        },
+        {
+          "playerId": "p022",
+          "points": 45
+        },
+        {
+          "playerId": "p023",
+          "points": 90
+        },
+        {
+          "playerId": "p025",
+          "points": 45
+        },
+        {
+          "playerId": "p026",
+          "points": 45
+        },
+        {
+          "playerId": "p027",
+          "points": 90
+        },
+        {
+          "playerId": "p029",
+          "points": 45
+        },
+        {
+          "playerId": "p032",
+          "points": 90
+        },
+        {
+          "playerId": "p039",
+          "points": 45
+        }
+      ]
+    },
+    {
+      "id": "t23",
+      "name": "Тур 23 — Комбинированная пирамида с продолжением",
+      "date": "2026-06-14",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 300
+        },
+        {
+          "playerId": "p002",
+          "points": 500
+        },
+        {
+          "playerId": "p004",
+          "points": 180
+        },
+        {
+          "playerId": "p005",
+          "points": 90
+        },
+        {
+          "playerId": "p011",
+          "points": 90
+        },
+        {
+          "playerId": "p012",
+          "points": 180
+        },
+        {
+          "playerId": "p017",
+          "points": 45
+        },
+        {
+          "playerId": "p022",
+          "points": 90
+        },
+        {
+          "playerId": "p023",
+          "points": 45
+        },
+        {
+          "playerId": "p026",
+          "points": 25
+        },
+        {
+          "playerId": "p028",
+          "points": 45
+        },
+        {
+          "playerId": "p032",
+          "points": 25
+        },
+        {
+          "playerId": "p034",
+          "points": 25
+        },
+        {
+          "playerId": "p035",
+          "points": 25
+        },
+        {
+          "playerId": "p039",
+          "points": 45
+        },
+        {
+          "playerId": "p042",
+          "points": 25
+        },
+        {
+          "playerId": "p043",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t24",
+      "name": "Тур 24 — Свободная пирамида",
+      "date": "2026-06-21",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 180
+        },
+        {
+          "playerId": "p006",
+          "points": 90
+        },
+        {
+          "playerId": "p008",
+          "points": 500
+        },
+        {
+          "playerId": "p012",
+          "points": 180
+        },
+        {
+          "playerId": "p013",
+          "points": 25
+        },
+        {
+          "playerId": "p015",
+          "points": 90
+        },
+        {
+          "playerId": "p016",
+          "points": 25
+        },
+        {
+          "playerId": "p017",
+          "points": 45
+        },
+        {
+          "playerId": "p022",
+          "points": 45
+        },
+        {
+          "playerId": "p023",
+          "points": 45
+        },
+        {
+          "playerId": "p026",
+          "points": 25
+        },
+        {
+          "playerId": "p027",
+          "points": 45
+        },
+        {
+          "playerId": "p029",
+          "points": 25
+        },
+        {
+          "playerId": "p030",
+          "points": 25
+        },
+        {
+          "playerId": "p035",
+          "points": 25
+        },
+        {
+          "playerId": "p042",
+          "points": 25
+        },
+        {
+          "playerId": "p045",
+          "points": 90
+        }
+      ]
+    },
+    {
+      "id": "t25",
+      "name": "Тур 25 — Свободная пирамида с продолжением",
+      "date": "2026-06-27",
+      "type": "masters",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 1000
+        },
+        {
+          "playerId": "p002",
+          "points": 600
+        },
+        {
+          "playerId": "p006",
+          "points": 90
+        },
+        {
+          "playerId": "p010",
+          "points": 360
+        },
+        {
+          "playerId": "p011",
+          "points": 360
+        },
+        {
+          "playerId": "p014",
+          "points": 180
+        },
+        {
+          "playerId": "p015",
+          "points": 180
+        },
+        {
+          "playerId": "p017",
+          "points": 45
+        },
+        {
+          "playerId": "p018",
+          "points": 45
+        },
+        {
+          "playerId": "p019",
+          "points": 90
+        },
+        {
+          "playerId": "p021",
+          "points": 180
+        },
+        {
+          "playerId": "p022",
+          "points": 90
+        },
+        {
+          "playerId": "p023",
+          "points": 45
+        },
+        {
+          "playerId": "p026",
+          "points": 25
+        },
+        {
+          "playerId": "p030",
+          "points": 25
+        },
+        {
+          "playerId": "p036",
+          "points": 90
+        },
+        {
+          "playerId": "p042",
+          "points": 25
+        },
+        {
+          "playerId": "p043",
+          "points": 45
+        }
+      ]
+    },
+    {
+      "id": "t26",
+      "name": "Тур 26 — Комбинированная пирамида",
+      "date": "2026-07-25",
+      "type": "masters",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 90
+        },
+        {
+          "playerId": "p002",
+          "points": 360
+        },
+        {
+          "playerId": "p003",
+          "points": 600
+        },
+        {
+          "playerId": "p005",
+          "points": 360
+        },
+        {
+          "playerId": "p007",
+          "points": 180
+        },
+        {
+          "playerId": "p008",
+          "points": 180
+        },
+        {
+          "playerId": "p010",
+          "points": 1000
+        },
+        {
+          "playerId": "p011",
+          "points": 180
+        },
+        {
+          "playerId": "p014",
+          "points": 25
+        },
+        {
+          "playerId": "p015",
+          "points": 90
+        },
+        {
+          "playerId": "p016",
+          "points": 90
+        },
+        {
+          "playerId": "p017",
+          "points": 25
+        },
+        {
+          "playerId": "p021",
+          "points": 45
+        },
+        {
+          "playerId": "p022",
+          "points": 45
+        },
+        {
+          "playerId": "p023",
+          "points": 25
+        },
+        {
+          "playerId": "p025",
+          "points": 90
+        },
+        {
+          "playerId": "p026",
+          "points": 25
+        },
+        {
+          "playerId": "p027",
+          "points": 25
+        },
+        {
+          "playerId": "p029",
+          "points": 45
+        },
+        {
+          "playerId": "p037",
+          "points": 180
+        },
+        {
+          "playerId": "p042",
+          "points": 25
+        },
+        {
+          "playerId": "p043",
+          "points": 25
+        },
+        {
+          "playerId": "p053",
+          "points": 45
         }
       ]
     }

@@ -42,7 +42,7 @@ async function init() {
         (row) => `
         <tr>
           <td class="place-cell">${ballBadge(row.place)}</td>
-          <td class="name-cell">${escapeHtml(row.name)}</td>
+          <td class="name-cell"><a class="player-link" href="player.html?id=${encodeURIComponent(row.playerId)}">${escapeHtml(row.name)}</a></td>
           <td class="num points-cell">${row.points}</td>
         </tr>`
       )

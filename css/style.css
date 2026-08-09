@@ -464,11 +464,51 @@ table.rating-table {
   font-family: var(--font-mono);
 }
 
-.rating-table a.player-link {
+.rating-table a.player-link,
+.podium__name a {
   color: inherit;
+  text-decoration: none;
 }
-.rating-table a.player-link:hover {
+.rating-table a.player-link:hover,
+.podium__name a:hover {
   color: var(--brass-light);
+  text-decoration: underline;
+}
+
+.rating-table tbody tr.row-excluded {
+  opacity: 0.5;
+}
+
+.not-counted-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--chalk-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.player-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.player-stats-line {
+  color: var(--chalk-dim);
+  font-size: 0.92rem;
+}
+
+.stat-points {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--brass-light);
+  font-size: 1.1rem;
 }
 
 /* ============================================================
