@@ -267,6 +267,14 @@
     {
       "id": "p067",
       "name": "Голиков Анатолий"
+    },
+    {
+      "id": "p_mtokytpalhc9t0",
+      "name": "Катасонов Николай"
+    },
+    {
+      "id": "p_mtokytpac0gz5g",
+      "name": "Смирнов Александр"
     }
   ],
   "tournaments": [
@@ -2786,6 +2794,90 @@
         },
         {
           "playerId": "p027",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t_mtokytpbgjdtjr",
+      "name": "Мастер 1.000. 27 тур",
+      "date": "2026-08-29",
+      "type": "masters",
+      "results": [
+        {
+          "playerId": "p002",
+          "points": 1000
+        },
+        {
+          "playerId": "p010",
+          "points": 600
+        },
+        {
+          "playerId": "p009",
+          "points": 360
+        },
+        {
+          "playerId": "p012",
+          "points": 360
+        },
+        {
+          "playerId": "p003",
+          "points": 180
+        },
+        {
+          "playerId": "p005",
+          "points": 180
+        },
+        {
+          "playerId": "p011",
+          "points": 180
+        },
+        {
+          "playerId": "p017",
+          "points": 180
+        },
+        {
+          "playerId": "p016",
+          "points": 90
+        },
+        {
+          "playerId": "p019",
+          "points": 90
+        },
+        {
+          "playerId": "p021",
+          "points": 90
+        },
+        {
+          "playerId": "p022",
+          "points": 90
+        },
+        {
+          "playerId": "p039",
+          "points": 45
+        },
+        {
+          "playerId": "p023",
+          "points": 45
+        },
+        {
+          "playerId": "p_mtokytpalhc9t0",
+          "points": 45
+        },
+        {
+          "playerId": "p_mtokytpac0gz5g",
+          "points": 45
+        },
+        {
+          "playerId": "p025",
+          "points": 25
+        },
+        {
+          "playerId": "p042",
+          "points": 25
+        },
+        {
+          "playerId": "p026",
           "points": 25
         }
       ]
