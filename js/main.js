@@ -24,7 +24,7 @@ function renderPodium(top3) {
       return `
         <div class="podium__card podium__card--${order[i]}">
           <div class="podium__badge">${ballBadge(row.place, 'lg')}</div>
-          <div class="podium__name">${escapeHtml(row.name)}</div>
+          <div class="podium__name"><a href="player.html?id=${encodeURIComponent(row.playerId)}">${escapeHtml(row.name)}</a></div>
           <div class="podium__points">${row.total}</div>
           <div class="podium__points-label">очков</div>
         </div>`;
@@ -40,7 +40,7 @@ function renderTable(rows) {
       return `
         <tr>
           <td class="place-cell">${ballBadge(row.place)}</td>
-          <td class="name-cell">${escapeHtml(row.name)}</td>
+          <td class="name-cell"><a class="player-link" href="player.html?id=${encodeURIComponent(row.playerId)}">${escapeHtml(row.name)}</a></td>
           <td class="num muted">${playedLabel}</td>
           <td class="num points-cell">${row.total}</td>
         </tr>`;

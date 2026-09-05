@@ -94,3 +94,52 @@ export function computeLeaderboard(players, tournaments) {
 
   return withPlaces(rows, 'total');
 }
+
+/**
+ * Собирает профиль одного игрока: все турниры, где он участвовал,
+ * с очками по каждому, и отмечает, какие из них вошли в зачёт TOP_N
+ * (по количеству очков, а не по дате).
+ *
+ * @param {string} playerId
+ * @param {Array<Object>} players
+ * @param {Array<Object>} tournaments
+ * @returns {Object|null} профиль или null, если игрок не найден
+ */
+export function computePlayerProfile(playerId, players, tournaments) {
+  const player = players.find((p) => p.id === playerId);
+  if (!player) return null;
+
+  const participations = [];
+  for (const t of tournaments) {
+    const result = t.results.find((r) => r.playerId === playerId);
+    if (result) {
+      participations.push({
+        tournamentId: t.id,
+        tournamentName: t.name,
+        date: t.date,
+        type: t.type,
+        points: result.points,
+      });
+    }
+  }
+
+  // Стабильный порядок при равенстве очков — по id турнира, чтобы
+  // результат был детерминированным.
+  const byPointsDesc = [...participations].sort(
+    (a, b) => b.points - a.points || a.tournamentId.localeCompare(b.tournamentId)
+  );
+  const countedIds = new Set(byPointsDesc.slice(0, TOP_N).map((p) => p.tournamentId));
+  const totalPoints = byPointsDesc.slice(0, TOP_N).reduce((sum, p) => sum + p.points, 0);
+
+  const history = [...participations]
+    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
+    .map((p) => ({ ...p, isCounted: countedIds.has(p.tournamentId) }));
+
+  return {
+    player,
+    totalPoints,
+    played: participations.length,
+    counted: Math.min(participations.length, TOP_N),
+    history,
+  };
+}
