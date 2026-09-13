@@ -275,6 +275,18 @@
     {
       "id": "p_mtokytpac0gz5g",
       "name": "Смирнов Александр"
+    },
+    {
+      "id": "p_mtzu37qd9n47py",
+      "name": "Трифонов Валерий"
+    },
+    {
+      "id": "p_mtzu37qdgtn6y5",
+      "name": "Максимов Виктор"
+    },
+    {
+      "id": "p_mtzu37qdlw51u1",
+      "name": "Бектемир уулу Жылдызбек"
     }
   ],
   "tournaments": [
@@ -2878,6 +2890,102 @@
         },
         {
           "playerId": "p026",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t_mtzu37qdkujbu2",
+      "name": "Тур 28. Комбинированная пирамида",
+      "date": "2026-09-13",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p006",
+          "points": 500
+        },
+        {
+          "playerId": "p002",
+          "points": 300
+        },
+        {
+          "playerId": "p035",
+          "points": 180
+        },
+        {
+          "playerId": "p003",
+          "points": 180
+        },
+        {
+          "playerId": "p012",
+          "points": 90
+        },
+        {
+          "playerId": "p034",
+          "points": 90
+        },
+        {
+          "playerId": "p023",
+          "points": 90
+        },
+        {
+          "playerId": "p005",
+          "points": 90
+        },
+        {
+          "playerId": "p032",
+          "points": 45
+        },
+        {
+          "playerId": "p_mtzu37qd9n47py",
+          "points": 45
+        },
+        {
+          "playerId": "p029",
+          "points": 45
+        },
+        {
+          "playerId": "p016",
+          "points": 45
+        },
+        {
+          "playerId": "p026",
+          "points": 25
+        },
+        {
+          "playerId": "p043",
+          "points": 25
+        },
+        {
+          "playerId": "p022",
+          "points": 25
+        },
+        {
+          "playerId": "p_mtzu37qdgtn6y5",
+          "points": 25
+        },
+        {
+          "playerId": "p_mtzu37qdlw51u1",
+          "points": 25
+        },
+        {
+          "playerId": "p042",
+          "points": 25
+        },
+        {
+          "playerId": "p041",
+          "points": 25
+        },
+        {
+          "playerId": "p017",
+          "points": 25
+        },
+        {
+          "playerId": "p_mtokytpac0gz5g",
+          "points": 25
+        },
+        {
+          "playerId": "p039",
           "points": 25
         }
       ]
