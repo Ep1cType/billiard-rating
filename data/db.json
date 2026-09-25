@@ -287,6 +287,10 @@
     {
       "id": "p_mtzu37qdlw51u1",
       "name": "Бектемир уулу Жылдызбек"
+    },
+    {
+      "id": "p_mugxfk1lj5vyg1",
+      "name": "Лыко"
     }
   ],
   "tournaments": [
@@ -2986,6 +2990,90 @@
         },
         {
           "playerId": "p039",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t_mugxfk1mtpjwek",
+      "name": "Тур 29",
+      "date": "2026-09-20",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p015",
+          "points": 500
+        },
+        {
+          "playerId": "p008",
+          "points": 300
+        },
+        {
+          "playerId": "p013",
+          "points": 180
+        },
+        {
+          "playerId": "p035",
+          "points": 180
+        },
+        {
+          "playerId": "p016",
+          "points": 90
+        },
+        {
+          "playerId": "p014",
+          "points": 90
+        },
+        {
+          "playerId": "p021",
+          "points": 90
+        },
+        {
+          "playerId": "p017",
+          "points": 90
+        },
+        {
+          "playerId": "p_mugxfk1lj5vyg1",
+          "points": 45
+        },
+        {
+          "playerId": "p029",
+          "points": 45
+        },
+        {
+          "playerId": "p020",
+          "points": 45
+        },
+        {
+          "playerId": "p003",
+          "points": 45
+        },
+        {
+          "playerId": "p039",
+          "points": 25
+        },
+        {
+          "playerId": "p025",
+          "points": 25
+        },
+        {
+          "playerId": "p026",
+          "points": 25
+        },
+        {
+          "playerId": "p_mtzu37qdgtn6y5",
+          "points": 25
+        },
+        {
+          "playerId": "p027",
+          "points": 25
+        },
+        {
+          "playerId": "p036",
+          "points": 25
+        },
+        {
+          "playerId": "p034",
           "points": 25
         }
       ]
