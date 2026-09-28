@@ -3077,6 +3077,102 @@
           "points": 25
         }
       ]
+    },
+    {
+      "id": "t_muldosoz3h5af4",
+      "name": "30 тур. Динамичная пирамида.",
+      "date": "2026-09-26",
+      "type": "grand_slam",
+      "results": [
+        {
+          "playerId": "p002",
+          "points": 2000
+        },
+        {
+          "playerId": "p010",
+          "points": 1200
+        },
+        {
+          "playerId": "p015",
+          "points": 720
+        },
+        {
+          "playerId": "p003",
+          "points": 720
+        },
+        {
+          "playerId": "p006",
+          "points": 360
+        },
+        {
+          "playerId": "p009",
+          "points": 360
+        },
+        {
+          "playerId": "p014",
+          "points": 360
+        },
+        {
+          "playerId": "p018",
+          "points": 360
+        },
+        {
+          "playerId": "p025",
+          "points": 180
+        },
+        {
+          "playerId": "p065",
+          "points": 180
+        },
+        {
+          "playerId": "p016",
+          "points": 180
+        },
+        {
+          "playerId": "p005",
+          "points": 180
+        },
+        {
+          "playerId": "p017",
+          "points": 90
+        },
+        {
+          "playerId": "p021",
+          "points": 90
+        },
+        {
+          "playerId": "p019",
+          "points": 90
+        },
+        {
+          "playerId": "p023",
+          "points": 90
+        },
+        {
+          "playerId": "p022",
+          "points": 45
+        },
+        {
+          "playerId": "p042",
+          "points": 45
+        },
+        {
+          "playerId": "p039",
+          "points": 45
+        },
+        {
+          "playerId": "p027",
+          "points": 45
+        },
+        {
+          "playerId": "p008",
+          "points": 45
+        },
+        {
+          "playerId": "p026",
+          "points": 45
+        }
+      ]
     }
   ]
 }
