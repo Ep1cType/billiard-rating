@@ -3265,6 +3265,90 @@
           "points": 25
         }
       ]
+    },
+    {
+      "id": "t_mvau1ptfy567na",
+      "name": "32 тур. Комбинированная пирамида",
+      "date": "2026-10-11",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 500
+        },
+        {
+          "playerId": "p011",
+          "points": 300
+        },
+        {
+          "playerId": "p014",
+          "points": 180
+        },
+        {
+          "playerId": "p018",
+          "points": 180
+        },
+        {
+          "playerId": "p005",
+          "points": 90
+        },
+        {
+          "playerId": "p012",
+          "points": 90
+        },
+        {
+          "playerId": "p019",
+          "points": 90
+        },
+        {
+          "playerId": "p035",
+          "points": 90
+        },
+        {
+          "playerId": "p027",
+          "points": 45
+        },
+        {
+          "playerId": "p058",
+          "points": 45
+        },
+        {
+          "playerId": "p008",
+          "points": 45
+        },
+        {
+          "playerId": "p029",
+          "points": 45
+        },
+        {
+          "playerId": "p022",
+          "points": 25
+        },
+        {
+          "playerId": "p006",
+          "points": 25
+        },
+        {
+          "playerId": "p025",
+          "points": 25
+        },
+        {
+          "playerId": "p020",
+          "points": 25
+        },
+        {
+          "playerId": "p013",
+          "points": 25
+        },
+        {
+          "playerId": "p017",
+          "points": 25
+        },
+        {
+          "playerId": "p026",
+          "points": 25
+        }
+      ]
     }
   ]
 }
