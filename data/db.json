@@ -3349,6 +3349,98 @@
           "points": 25
         }
       ]
+    },
+    {
+      "id": "t_mvjmyy0blobmj4",
+      "name": "33 тур. Динамичная пирамида.",
+      "date": "2026-10-18",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 500
+        },
+        {
+          "playerId": "p002",
+          "points": 300
+        },
+        {
+          "playerId": "p037",
+          "points": 180
+        },
+        {
+          "playerId": "p008",
+          "points": 180
+        },
+        {
+          "playerId": "p006",
+          "points": 90
+        },
+        {
+          "playerId": "p011",
+          "points": 90
+        },
+        {
+          "playerId": "p022",
+          "points": 90
+        },
+        {
+          "playerId": "p049",
+          "points": 90
+        },
+        {
+          "playerId": "p014",
+          "points": 45
+        },
+        {
+          "playerId": "p013",
+          "points": 45
+        },
+        {
+          "playerId": "p005",
+          "points": 45
+        },
+        {
+          "playerId": "p012",
+          "points": 45
+        },
+        {
+          "playerId": "p023",
+          "points": 25
+        },
+        {
+          "playerId": "p038",
+          "points": 25
+        },
+        {
+          "playerId": "p026",
+          "points": 25
+        },
+        {
+          "playerId": "p027",
+          "points": 25
+        },
+        {
+          "playerId": "p017",
+          "points": 25
+        },
+        {
+          "playerId": "p029",
+          "points": 25
+        },
+        {
+          "playerId": "p019",
+          "points": 25
+        },
+        {
+          "playerId": "p035",
+          "points": 25
+        },
+        {
+          "playerId": "p020",
+          "points": 25
+        }
+      ]
     }
   ]
 }
