@@ -291,6 +291,10 @@
     {
       "id": "p_mugxfk1lj5vyg1",
       "name": "Лыко"
+    },
+    {
+      "id": "p_mvnpfe1nvc6286",
+      "name": "Большешапов Ростислав"
     }
   ],
   "tournaments": [
@@ -3439,6 +3443,134 @@
         {
           "playerId": "p020",
           "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t_mvnpfe1nyc7s3t",
+      "name": "34 тур. Свободная с продолжением.",
+      "date": "2026-10-24",
+      "type": "masters",
+      "results": [
+        {
+          "playerId": "p005",
+          "points": 1000
+        },
+        {
+          "playerId": "p010",
+          "points": 600
+        },
+        {
+          "playerId": "p002",
+          "points": 360
+        },
+        {
+          "playerId": "p015",
+          "points": 360
+        },
+        {
+          "playerId": "p001",
+          "points": 180
+        },
+        {
+          "playerId": "p006",
+          "points": 180
+        },
+        {
+          "playerId": "p003",
+          "points": 180
+        },
+        {
+          "playerId": "p021",
+          "points": 180
+        },
+        {
+          "playerId": "p004",
+          "points": 90
+        },
+        {
+          "playerId": "p012",
+          "points": 90
+        },
+        {
+          "playerId": "p050",
+          "points": 90
+        },
+        {
+          "playerId": "p008",
+          "points": 90
+        },
+        {
+          "playerId": "p011",
+          "points": 45
+        },
+        {
+          "playerId": "p017",
+          "points": 45
+        },
+        {
+          "playerId": "p014",
+          "points": 45
+        },
+        {
+          "playerId": "p022",
+          "points": 45
+        },
+        {
+          "playerId": "p023",
+          "points": 25
+        },
+        {
+          "playerId": "p040",
+          "points": 25
+        },
+        {
+          "playerId": "p029",
+          "points": 25
+        },
+        {
+          "playerId": "p034",
+          "points": 25
+        },
+        {
+          "playerId": "p016",
+          "points": 25
+        },
+        {
+          "playerId": "p039",
+          "points": 25
+        },
+        {
+          "playerId": "p063",
+          "points": 25
+        },
+        {
+          "playerId": "p020",
+          "points": 25
+        },
+        {
+          "playerId": "p052",
+          "points": 15
+        },
+        {
+          "playerId": "p_mvnpfe1nvc6286",
+          "points": 15
+        },
+        {
+          "playerId": "p026",
+          "points": 15
+        },
+        {
+          "playerId": "p038",
+          "points": 15
+        },
+        {
+          "playerId": "p035",
+          "points": 15
+        },
+        {
+          "playerId": "p027",
+          "points": 15
         }
       ]
     }
