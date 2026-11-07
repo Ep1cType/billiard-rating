@@ -295,6 +295,14 @@
     {
       "id": "p_mvnpfe1nvc6286",
       "name": "Большешапов Ростислав"
+    },
+    {
+      "id": "p_mw6ffhikidpqlg",
+      "name": "Чубаков Максим"
+    },
+    {
+      "id": "p_mw6ffhikxxpemi",
+      "name": "Невмержицкий Александр"
     }
   ],
   "tournaments": [
@@ -3571,6 +3579,114 @@
         {
           "playerId": "p027",
           "points": 15
+        }
+      ]
+    },
+    {
+      "id": "t_mw6ffhil7kw9uu",
+      "name": "35 тур. Свободная пирамида.",
+      "date": "2026-11-01",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 500
+        },
+        {
+          "playerId": "p015",
+          "points": 300
+        },
+        {
+          "playerId": "p006",
+          "points": 180
+        },
+        {
+          "playerId": "p011",
+          "points": 180
+        },
+        {
+          "playerId": "p035",
+          "points": 90
+        },
+        {
+          "playerId": "p012",
+          "points": 90
+        },
+        {
+          "playerId": "p017",
+          "points": 90
+        },
+        {
+          "playerId": "p005",
+          "points": 90
+        },
+        {
+          "playerId": "p_mw6ffhikidpqlg",
+          "points": 45
+        },
+        {
+          "playerId": "p008",
+          "points": 45
+        },
+        {
+          "playerId": "p_mtzu37qdgtn6y5",
+          "points": 45
+        },
+        {
+          "playerId": "p004",
+          "points": 45
+        },
+        {
+          "playerId": "p036",
+          "points": 45
+        },
+        {
+          "playerId": "p022",
+          "points": 45
+        },
+        {
+          "playerId": "p023",
+          "points": 45
+        },
+        {
+          "playerId": "p003",
+          "points": 45
+        },
+        {
+          "playerId": "p058",
+          "points": 25
+        },
+        {
+          "playerId": "p026",
+          "points": 25
+        },
+        {
+          "playerId": "p034",
+          "points": 25
+        },
+        {
+          "playerId": "p027",
+          "points": 25
+        },
+        {
+          "playerId": "p043",
+          "points": 25
+        },
+        {
+          "playerId": "p020",
+          "points": 25
+        },
+        {
+          "playerId": "p045",
+          "points": 25
+        },
+        {
+          "playerId": "p_mw6ffhikxxpemi",
+          "points": 25
+        },
+        {
+          "playerId": "p021",
+          "points": 25
         }
       ]
     }
