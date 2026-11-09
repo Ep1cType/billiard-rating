@@ -303,6 +303,14 @@
     {
       "id": "p_mw6ffhikxxpemi",
       "name": "Невмержицкий Александр"
+    },
+    {
+      "id": "p_mw92n5qz6va562",
+      "name": "Пронин Сергей"
+    },
+    {
+      "id": "p_mw92n5r0743g78",
+      "name": "Быков Александр"
     }
   ],
   "tournaments": [
@@ -3686,6 +3694,106 @@
         },
         {
           "playerId": "p021",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t_mw92n5r0sy1r39",
+      "name": "Комбинированная пирамида. 36 тур",
+      "date": "2026-11-08",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 500
+        },
+        {
+          "playerId": "p006",
+          "points": 300
+        },
+        {
+          "playerId": "p003",
+          "points": 180
+        },
+        {
+          "playerId": "p008",
+          "points": 180
+        },
+        {
+          "playerId": "p012",
+          "points": 90
+        },
+        {
+          "playerId": "p018",
+          "points": 90
+        },
+        {
+          "playerId": "p005",
+          "points": 90
+        },
+        {
+          "playerId": "p014",
+          "points": 90
+        },
+        {
+          "playerId": "p013",
+          "points": 45
+        },
+        {
+          "playerId": "p035",
+          "points": 45
+        },
+        {
+          "playerId": "p023",
+          "points": 45
+        },
+        {
+          "playerId": "p037",
+          "points": 45
+        },
+        {
+          "playerId": "p_mw92n5qz6va562",
+          "points": 25
+        },
+        {
+          "playerId": "p021",
+          "points": 25
+        },
+        {
+          "playerId": "p019",
+          "points": 25
+        },
+        {
+          "playerId": "p041",
+          "points": 25
+        },
+        {
+          "playerId": "p050",
+          "points": 25
+        },
+        {
+          "playerId": "p_mw92n5r0743g78",
+          "points": 25
+        },
+        {
+          "playerId": "p029",
+          "points": 25
+        },
+        {
+          "playerId": "p028",
+          "points": 25
+        },
+        {
+          "playerId": "p017",
+          "points": 25
+        },
+        {
+          "playerId": "p034",
+          "points": 25
+        },
+        {
+          "playerId": "p026",
           "points": 25
         }
       ]
