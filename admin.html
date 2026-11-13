@@ -47,7 +47,7 @@
   <div class="container" style="max-width: 720px;">
 
     <div class="section-title">
-      <h2 style="font-size:1.8rem;">Турниры: добавить или исправить</h2>
+      <h2 class="page-title">Турниры: добавить или исправить</h2>
     </div>
 
     <div id="checking-token" class="loading-row" hidden><span class="spinner"></span>&nbsp; Проверяем сохранённый токен…</div>
@@ -88,7 +88,7 @@
         <select id="edit-select">
           <option value="">➕ Добавить новый турнир</option>
         </select>
-        <p class="hint">Чтобы исправить уже сохранённый турнир (например, заменить ошибочно добавленного игрока), выберите его в этом списке.</p>
+        <p class="hint">Чтобы вписать очки после жеребьёвки или исправить уже сохранённый турнир, выберите его в этом списке.</p>
       </div>
 
       <form id="tournament-form">
@@ -115,11 +115,26 @@
         <div class="field">
           <label>Игроки и очки <span id="players-count" class="players-count"></span></label>
           <div id="players-rows"></div>
+          <div id="undo-bar" class="undo-bar" hidden>
+            <span id="undo-text"></span>
+            <button type="button" id="undo-btn" class="undo-bar__btn">Вернуть</button>
+          </div>
           <button type="button" id="add-player-row-btn" class="btn btn-secondary">+ Добавить игрока</button>
-          <p class="hint">Начните вводить имя — если игрок уже есть в базе, выберите его из списка, чтобы не создать дубль. Новое имя автоматически станет новым игроком.</p>
+          <p class="hint">Начните вводить имя — если игрок уже есть в базе, выберите его из списка, чтобы не создать дубль. Новое имя автоматически станет новым игроком. До турнира очки можно не заполнять: проведите жеребьёвку ниже и сохраните турнир как предстоящий.</p>
         </div>
 
         <datalist id="players-datalist"></datalist>
+
+        <div class="field" id="groups-field">
+          <label>Группы <span class="players-count">необязательно</span></label>
+          <p id="groups-status" class="hint" style="margin-top:0;"></p>
+          <div class="field-row" style="align-items:center;">
+            <select id="groups-count-select" aria-label="Количество групп" hidden style="width:auto;"></select>
+            <button type="button" id="draw-btn" class="btn btn-secondary">Провести жеребьёвку</button>
+            <button type="button" id="clear-groups-btn" class="btn btn-ghost" hidden>Убрать группы</button>
+          </div>
+          <div id="groups-board" class="groups-board"></div>
+        </div>
 
         <div id="preview-wrap" hidden>
           <div class="section-title"><h2 style="font-size:1rem;">Предпросмотр мест</h2></div>
@@ -134,6 +149,7 @@
         <div id="form-banner" class="banner" hidden></div>
 
         <button type="submit" class="btn btn-primary btn-large" id="submit-btn">Сохранить турнир</button>
+        <button type="button" class="btn btn-danger btn-large delete-btn" id="delete-btn" hidden>Удалить турнир</button>
       </form>
     </section>
 

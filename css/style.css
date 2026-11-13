@@ -61,8 +61,8 @@ body {
   min-height: 100vh;
   background-color: var(--felt-deep);
   background-image:
-          radial-gradient(ellipse 900px 500px at 50% -10%, rgba(212, 175, 55, 0.08), transparent 60%),
-          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    radial-gradient(ellipse 900px 500px at 50% -10%, rgba(212, 175, 55, 0.08), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
   color: var(--chalk);
   font-family: var(--font-body);
   font-size: 16px;
@@ -256,8 +256,8 @@ main {
   font-size: 0.95rem;
   color: var(--chalk);
   background:
-          radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.4), transparent 42%),
-          var(--felt-light);
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.4), transparent 42%),
+    var(--felt-light);
   box-shadow: inset 0 -4px 7px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
@@ -268,23 +268,23 @@ main {
 
 .ball-badge.rank-1 {
   background:
-          radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.65), transparent 42%),
-          linear-gradient(160deg, var(--brass-light), var(--brass-dark));
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.65), transparent 42%),
+    linear-gradient(160deg, var(--brass-light), var(--brass-dark));
   color: #2b2005;
   box-shadow: inset 0 -4px 7px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(212, 175, 55, 0.45);
 }
 
 .ball-badge.rank-2 {
   background:
-          radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.65), transparent 42%),
-          linear-gradient(160deg, var(--silver-a), var(--silver-b));
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.65), transparent 42%),
+    linear-gradient(160deg, var(--silver-a), var(--silver-b));
   color: #23282c;
 }
 
 .ball-badge.rank-3 {
   background:
-          radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.55), transparent 42%),
-          linear-gradient(160deg, var(--bronze-a), var(--bronze-b));
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.55), transparent 42%),
+    linear-gradient(160deg, var(--bronze-a), var(--bronze-b));
   color: #2b1a09;
 }
 
@@ -346,16 +346,30 @@ main {
   margin-top: 2px;
 }
 
+/* Телефон: призёры идут сверху вниз 1 → 2 → 3, компактными строками */
 @media (max-width: 640px) {
   .podium {
     grid-template-columns: 1fr;
+    gap: 8px;
+    margin-bottom: 32px;
   }
-  .podium__card--first,
-  .podium__card--second,
-  .podium__card--third {
-    order: 0;
-    padding: 18px 16px;
+  .podium__card,
+  .podium__card--first {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    column-gap: 14px;
+    padding: 12px 16px;
+    text-align: left;
   }
+  .podium__card--first { order: 1; }
+  .podium__card--second { order: 2; }
+  .podium__card--third { order: 3; }
+  .podium__badge { margin: 0; grid-row: span 2; }
+  .podium__badge .ball-badge--lg { --size: 2.6rem; font-size: 1.05rem; }
+  .podium__name { margin: 0; grid-row: span 2; }
+  .podium__points { font-size: 1.25rem; text-align: right; line-height: 1.1; }
+  .podium__points-label { text-align: right; margin: 0; }
 }
 
 /* ============================================================
@@ -890,4 +904,320 @@ input:focus, select:focus {
   width: 8.5rem;
   flex-shrink: 0;
   justify-content: center;
+}
+
+/* ============================================================
+   ГРУППЫ (жеребьёвка)
+   ============================================================ */
+.groups-board {
+  margin-top: 14px;
+}
+
+.groups-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+.groups-grid--public {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  margin-bottom: 28px;
+}
+
+.group-card {
+  background: var(--felt-deep);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 10px 10px 8px;
+}
+
+.group-card--unassigned {
+  border-style: dashed;
+  border-color: var(--danger);
+}
+
+.group-card__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  margin-bottom: 6px;
+  padding: 0 4px;
+}
+
+.group-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--brass-light);
+}
+
+.group-card__count {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--chalk-faint);
+  margin-right: auto;
+}
+
+.group-card__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.group-player {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--chalk);
+  font-size: 0.92rem;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.group-player:hover {
+  background: rgba(255, 255, 255, 0.05);
+  text-decoration: none;
+}
+
+.group-player.is-selected {
+  border-color: var(--brass);
+  background: rgba(212, 175, 55, 0.14);
+}
+
+.seed-mark {
+  flex-shrink: 0;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #2b2005;
+  background: linear-gradient(160deg, var(--brass-light), var(--brass-dark));
+}
+
+.seed-mark--none {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.group-move-btn {
+  border: 1px solid var(--brass);
+  background: transparent;
+  color: var(--brass-light);
+  border-radius: var(--radius-pill);
+  padding: 3px 10px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.group-move-btn:hover {
+  background: rgba(212, 175, 55, 0.14);
+}
+
+.hint--error {
+  color: #f0c3c0;
+}
+
+.banner-info {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--chalk-dim);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.upcoming-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brass-light);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: var(--radius-pill);
+  padding: 2px 9px;
+  white-space: nowrap;
+}
+
+/* На узких экранах название турнира уходит на отдельную строку под плашкой типа */
+@media (max-width: 560px) {
+  .tournament-list-item__main {
+    flex-wrap: wrap;
+    gap: 8px 10px;
+  }
+  .tournament-list-item__name {
+    flex: 1 1 100%;
+    order: 3;
+  }
+}
+
+/* ============================================================
+   АДМИНКА: мелочи
+   ============================================================ */
+.page-title {
+  font-size: 1.8rem;
+}
+
+.panel-header .btn {
+  padding: 7px 14px;
+  font-size: 0.85rem;
+}
+
+.undo-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding: 8px 8px 8px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--chalk-dim);
+  font-size: 0.9rem;
+}
+
+.undo-bar__btn {
+  flex-shrink: 0;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--brass);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--brass-light);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.delete-btn {
+  margin-top: 14px;
+  padding: 12px 20px;
+}
+
+.banner code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+.groups-selection {
+  position: sticky;
+  top: 8px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 8px 8px 8px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--brass);
+  background: #2b3a22;
+  color: var(--chalk);
+  font-size: 0.88rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.groups-selection__cancel {
+  flex-shrink: 0;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--chalk);
+  cursor: pointer;
+}
+
+/* ============================================================
+   ТЕЛЕФОН (до 560px): всё помещается по ширине, крупные зоны нажатия
+   ============================================================ */
+@media (max-width: 560px) {
+  .container {
+    padding: 0 14px;
+  }
+  main {
+    padding: 24px 0 56px;
+  }
+  .site-header__inner {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+  .panel {
+    padding: 18px 14px;
+  }
+  .page-title {
+    font-size: 1.3rem;
+  }
+  .hero {
+    padding: 8px 0 28px;
+  }
+
+  /* Таблицы без горизонтальной прокрутки */
+  table.rating-table {
+    min-width: 0;
+  }
+  .rating-table thead th,
+  .rating-table td {
+    padding: 10px 8px;
+  }
+  .rating-table th.idx,
+  .rating-table td.idx {
+    padding-right: 2px;
+    padding-left: 6px;
+  }
+  .rating-table .col-secondary {
+    display: none; /* второстепенные колонки: число турниров, тип турнира */
+  }
+  .rating-table td.name-cell {
+    overflow-wrap: anywhere;
+  }
+  .rating-table .ball-badge {
+    --size: 2rem;
+    font-size: 0.85rem;
+  }
+  .not-counted-tag {
+    display: block;
+    margin: 2px 0 0;
+  }
+
+  /* Форма турнира */
+  .player-row {
+    grid-template-columns: 18px 1fr 64px 44px;
+    gap: 6px;
+  }
+  .player-row input {
+    padding-left: 8px;
+    padding-right: 6px;
+  }
+  .player-row .remove-row-btn {
+    width: 44px;
+    height: 44px;
+  }
+  #add-player-row-btn,
+  #draw-btn,
+  #clear-groups-btn {
+    width: 100%;
+    min-height: 46px;
+  }
+  .group-player {
+    min-height: 44px;
+    font-size: 1rem;
+  }
+  .group-move-btn {
+    min-height: 34px;
+    padding: 0 14px;
+    font-size: 0.82rem;
+  }
+  .banner-actions .btn {
+    width: 100%;
+  }
 }

@@ -37,7 +37,7 @@ function renderHistory(history) {
           <td class="name-cell">
             <a class="player-link" href="tournament.html?id=${encodeURIComponent(h.tournamentId)}">${escapeHtml(h.tournamentName)}</a>
           </td>
-          <td><span class="type-badge type-badge--${h.type}">${typeLabel(h.type)}</span></td>
+          <td class="col-secondary"><span class="type-badge type-badge--${h.type}">${typeLabel(h.type)}</span></td>
           <td class="num points-cell">${h.points}${tag}</td>
         </tr>`;
     })

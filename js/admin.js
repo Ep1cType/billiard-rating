@@ -1,5 +1,6 @@
 import { GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH, DATA_PATH } from './config.js';
-import { withPlaces, typeLabel } from './ranking.js';
+import { withPlaces, typeLabel, computeLeaderboard } from './ranking.js';
+import { calculateGroups, distributeByRating, MIN_GROUP_PLAYERS, MAX_GROUP_PLAYERS } from './groups.js';
 import { generateId, utf8ToBase64, base64ToUtf8, escapeHtml, formatDate } from './utils.js';
 
 const TOKEN_KEY = 'billiard_admin_token';
@@ -29,13 +30,45 @@ const editSelect = document.getElementById('edit-select');
 const formTitle = document.getElementById('form-title');
 const playersCountEl = document.getElementById('players-count');
 
-let knownPlayers = []; // [{id, name}] — for datalist + matching existing players
-let knownTournaments = []; // турниры из репозитория — для списка «что исправляем»
+const groupsStatusEl = document.getElementById('groups-status');
+const groupsCountSelect = document.getElementById('groups-count-select');
+const drawBtn = document.getElementById('draw-btn');
+const clearGroupsBtn = document.getElementById('clear-groups-btn');
+const groupsBoard = document.getElementById('groups-board');
+const undoBar = document.getElementById('undo-bar');
+const undoText = document.getElementById('undo-text');
+const undoBtn = document.getElementById('undo-btn');
+const deleteBtn = document.getElementById('delete-btn');
+
+let knownPlayers = []; // [{id, name}] — для подсказок имён и сопоставления с существующими игроками
+let knownTournaments = []; // турниры из репозитория — для списка «что исправляем» и рейтинга при посеве
 let editingId = null; // id турнира, который сейчас правим (null = добавляем новый)
+
+// Группы в форме. Игроки в группах привязаны к строкам формы (по uid строки),
+// поэтому переименование игрока не ломает распределение.
+// null = турнир без групп; иначе { groups: [{ id: 'A', uids: [...] }], seeds: [uid, ...] }
+let groupsState = null;
+let selectedUid = null; // игрок, выбранный для обмена/перемещения
+let rowUidCounter = 0;
+let saving = false;
+let lastRemoved = null; // последняя удалённая строка игрока — для кнопки «Вернуть»
 
 /** Имена сравниваем без учёта регистра, «ё/е» и лишних пробелов — чтобы «Артём» и «Артем» не стали двумя игроками. */
 function normName(name) {
   return String(name).trim().replace(/\s+/g, ' ').toLowerCase().replace(/ё/g, 'е');
+}
+
+function isUpcoming(tournament) {
+  return (tournament.results?.length ?? 0) === 0;
+}
+
+/** Все игроки, связанные с турниром: и по результатам, и по группам. */
+function participantIds(tournament) {
+  const ids = new Set((tournament.results ?? []).map((r) => r.playerId));
+  for (const group of tournament.groups ?? []) {
+    for (const id of group.playerIds ?? []) ids.add(id);
+  }
+  return ids;
 }
 
 // ============================================================
@@ -98,9 +131,8 @@ logoutBtn.addEventListener('click', () => {
 });
 
 // ============================================================
-// Данные для даталиста (список уже известных игроков)
+// Свежие данные из репозитория → подсказки имён и список турниров
 // ============================================================
-/** Обновляет подсказки имён и список турниров для правки по свежим данным из репозитория. */
 function applyRepoData(data) {
   knownPlayers = data.players;
   knownTournaments = data.tournaments;
@@ -113,10 +145,10 @@ function applyRepoData(data) {
   editSelect.innerHTML =
     '<option value="">➕ Добавить новый турнир</option>' +
     sorted
-      .map(
-        (t) =>
-          `<option value="${escapeHtml(t.id)}">✏️ ${escapeHtml(formatDate(t.date))} — ${escapeHtml(t.name)} (${escapeHtml(typeLabel(t.type))})</option>`
-      )
+      .map((t) => {
+        const note = isUpcoming(t) ? ' · жеребьёвка, очки не внесены' : '';
+        return `<option value="${escapeHtml(t.id)}">✏️ ${escapeHtml(formatDate(t.date))} — ${escapeHtml(t.name)} (${escapeHtml(typeLabel(t.type))})${note}</option>`;
+      })
       .join('');
   editSelect.value = editingId && knownTournaments.some((t) => t.id === editingId) ? editingId : '';
 }
@@ -150,6 +182,7 @@ async function tryEnterAdminMode(token) {
     addPlayerRow();
     addPlayerRow();
   }
+  onRowsChanged();
   return true;
 }
 
@@ -159,55 +192,123 @@ async function tryEnterAdminMode(token) {
 function addPlayerRow(name = '', points = '') {
   const row = document.createElement('div');
   row.className = 'player-row';
+  rowUidCounter += 1;
+  row.dataset.uid = String(rowUidCounter);
   row.innerHTML = `
-    <input type="text" class="player-name-input" list="players-datalist" placeholder="Имя игрока" autocomplete="off" aria-label="Имя игрока">
-    <input type="number" class="player-points-input" placeholder="Очки" min="0" step="any" aria-label="Очки">
+    <input type="text" class="player-name-input" list="players-datalist" placeholder="Имя игрока" autocomplete="off" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-label="Имя игрока">
+    <input type="number" class="player-points-input" placeholder="Очки" min="0" step="any" inputmode="decimal" enterkeyhint="next" aria-label="Очки">
     <button type="button" class="remove-row-btn" aria-label="Удалить игрока">✕</button>
   `;
-  row.querySelector('.remove-row-btn').addEventListener('click', () => {
-    row.remove();
-    updatePreview();
-  });
   row.querySelector('.player-name-input').value = name;
   row.querySelector('.player-points-input').value = points;
-  row.querySelector('.player-name-input').addEventListener('input', updatePreview);
-  row.querySelector('.player-points-input').addEventListener('input', updatePreview);
+  row.querySelector('.remove-row-btn').addEventListener('click', () => removeRow(row));
+  row.querySelector('.player-name-input').addEventListener('input', onRowsChanged);
+  row.querySelector('.player-points-input').addEventListener('input', onRowsChanged);
   playersRowsEl.appendChild(row);
+  return row.dataset.uid;
 }
 
 addRowBtn.addEventListener('click', () => {
   addPlayerRow();
   playersRowsEl.lastElementChild.querySelector('.player-name-input').focus();
+  onRowsChanged();
+});
+
+/** Удаляет строку игрока. Если в ней было имя — показывает «Вернуть» (на телефоне легко промахнуться). */
+function removeRow(row) {
+  const name = row.querySelector('.player-name-input').value.trim();
+  const uid = row.dataset.uid;
+  lastRemoved = name
+    ? {
+        row,
+        next: row.nextElementSibling,
+        place: groupsState ? locate(uid) : null, // где игрок стоял в группах
+        seedPos: groupsState ? groupsState.seeds.indexOf(uid) : -1,
+      }
+    : null;
+  row.remove();
+  undoText.textContent = name ? `Убран: ${name}` : '';
+  undoBar.hidden = !lastRemoved;
+  onRowsChanged();
+}
+
+function clearUndo() {
+  lastRemoved = null;
+  undoBar.hidden = true;
+}
+
+undoBtn.addEventListener('click', () => {
+  if (!lastRemoved) return;
+  const { row, next, place, seedPos } = lastRemoved;
+  const uid = row.dataset.uid;
+  playersRowsEl.insertBefore(row, next && next.parentNode === playersRowsEl ? next : null);
+  // Возвращаем игрока на прежнее место в его группе (и в посеве)
+  if (groupsState && place && place.group !== -1 && groupsState.groups[place.group]) {
+    const uids = groupsState.groups[place.group].uids;
+    uids.splice(Math.min(place.pos, uids.length), 0, uid);
+    if (seedPos !== -1) groupsState.seeds.splice(Math.min(seedPos, groupsState.seeds.length), 0, uid);
+  }
+  clearUndo();
+  onRowsChanged();
+});
+
+// Клавиша «Далее»/Enter на телефоне не должна отправлять форму: ведём по полям.
+// Имя → очки этой строки → имя следующей строки (в конце списка добавляется новая строка).
+form.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' || e.target.tagName !== 'INPUT') return;
+  e.preventDefault();
+  const row = e.target.closest('.player-row');
+  if (!row) {
+    e.target.blur();
+    return;
+  }
+  if (e.target.classList.contains('player-name-input')) {
+    row.querySelector('.player-points-input').focus();
+    return;
+  }
+  if (!row.nextElementSibling) {
+    addPlayerRow();
+    onRowsChanged();
+  }
+  row.nextElementSibling.querySelector('.player-name-input').focus();
 });
 
 function readPlayerRows() {
   return [...playersRowsEl.querySelectorAll('.player-row')].map((row) => ({
+    uid: row.dataset.uid,
     name: row.querySelector('.player-name-input').value.trim(),
     pointsRaw: row.querySelector('.player-points-input').value.trim(),
   }));
 }
 
-/** Строки, где заполнены и имя, и очки */
-function readCompleteRows() {
-  return readPlayerRows()
-    .filter((r) => r.name !== '' && r.pointsRaw !== '')
-    .map((r) => ({ name: r.name, points: Number(r.pointsRaw) }));
+/** Строки, в которых вписано имя */
+function namedRows() {
+  return readPlayerRows().filter((r) => r.name !== '');
+}
+
+/** Вызывается при любом изменении списка игроков: счётчик, предпросмотр мест, группы, подписи. */
+function onRowsChanged() {
+  const named = namedRows();
+  playersCountEl.textContent = named.length > 0 ? `· ${named.length}` : '';
+  renderPreview(named);
+  reconcileGroups(named);
+  renderGroups(named);
+  updateModeLabels(named);
 }
 
 // ============================================================
 // Предпросмотр мест
 // ============================================================
-function updatePreview() {
-  const filled = readPlayerRows().filter((r) => r.name !== '').length;
-  playersCountEl.textContent = filled > 0 ? `· ${filled}` : '';
-
-  const rows = readCompleteRows().filter((r) => Number.isFinite(r.points) && r.points >= 0);
+function renderPreview(named) {
+  const rows = named
+    .filter((r) => r.pointsRaw !== '')
+    .map((r) => ({ name: r.name, points: Number(r.pointsRaw) }))
+    .filter((r) => Number.isFinite(r.points) && r.points >= 0);
   if (rows.length === 0) {
     previewWrap.hidden = true;
     return;
   }
-  const withRanks = withPlaces(rows, 'points');
-  previewBody.innerHTML = withRanks
+  previewBody.innerHTML = withPlaces(rows, 'points')
     .map(
       (r, i) => `
       <tr>
@@ -222,17 +323,255 @@ function updatePreview() {
 }
 
 // ============================================================
+// Группы: расчёт, жеребьёвка, ручная правка
+// ============================================================
+
+/** Расчёт групп для текущего числа игроков с учётом выбора организатора (когда вариантов несколько). */
+function currentCalc(playersCount) {
+  const first = calculateGroups(playersCount);
+  if (first.status !== 'choice-required') return first;
+  const options = first.availableGroupCounts;
+  const chosen = options.includes(Number(groupsCountSelect.value)) ? Number(groupsCountSelect.value) : options[0];
+  return calculateGroups(playersCount, chosen);
+}
+
+/** Убирает из групп игроков, чьих строк больше нет (или у кого стёрли имя). */
+function reconcileGroups(named) {
+  const valid = new Set(named.map((r) => r.uid));
+  if (selectedUid && !valid.has(selectedUid)) selectedUid = null;
+  if (!groupsState) return;
+  for (const group of groupsState.groups) {
+    group.uids = group.uids.filter((uid) => valid.has(uid));
+  }
+  groupsState.seeds = groupsState.seeds.filter((uid) => valid.has(uid));
+}
+
+function unassignedRows(named) {
+  if (!groupsState) return [];
+  const assigned = new Set(groupsState.groups.flatMap((g) => g.uids));
+  return named.filter((r) => !assigned.has(r.uid));
+}
+
+function findDuplicateName(named) {
+  const seen = new Set();
+  for (const r of named) {
+    const norm = normName(r.name);
+    if (seen.has(norm)) return r.name;
+    seen.add(norm);
+  }
+  return null;
+}
+
+/** Текущий рейтинг сайта (сумма 12 лучших) по имени игрока — основа посева. */
+function ratingLookup() {
+  // Турнир, который сейчас правим, в рейтинг для посева не входит
+  const leaderboard = computeLeaderboard(
+    knownPlayers,
+    knownTournaments.filter((t) => t.id !== editingId)
+  );
+  const byName = new Map(leaderboard.map((row) => [normName(row.name), row]));
+  return (name) => {
+    const row = byName.get(normName(name));
+    return row ? { ratingPoints: row.total, tournamentsPlayed: row.played } : { ratingPoints: 0, tournamentsPlayed: 0 };
+  };
+}
+
+function runDraw() {
+  const named = namedRows();
+  const duplicate = findDuplicateName(named);
+  if (duplicate) {
+    showGroupsError(`Игрок «${duplicate}» вписан дважды — уберите повтор, затем проведите жеребьёвку.`);
+    return;
+  }
+  const calc = currentCalc(named.length);
+  if (calc.status !== 'success') return;
+
+  if (
+    groupsState &&
+    !window.confirm('Провести жеребьёвку заново? Текущее распределение по группам будет заменено.')
+  ) {
+    return;
+  }
+
+  const rating = ratingLookup();
+  const players = named.map((r) => ({ id: r.uid, name: r.name, ...rating(r.name) }));
+  const { groups, seeded } = distributeByRating(players, calc.groups);
+
+  groupsState = {
+    groups: groups.map((g) => ({ id: g.id, uids: g.players.map((p) => p.id) })),
+    // Сеяными считаем только тех, у кого действительно есть рейтинг
+    seeds: seeded.filter((p) => p.ratingPoints > 0).map((p) => p.id),
+  };
+  selectedUid = null;
+  clearUndo();
+  hideBanner();
+  onRowsChanged();
+}
+
+function showGroupsError(text) {
+  groupsStatusEl.textContent = text;
+  groupsStatusEl.classList.add('hint--error');
+}
+
+function renderGroups(named) {
+  const calc = currentCalc(named.length);
+  groupsStatusEl.classList.remove('hint--error');
+
+  // Выбор числа групп — только когда подходит несколько вариантов (например, 24 участника: 6 или 8)
+  const options = calc.status === 'success' ? calc.availableGroupCounts : [];
+  if (options.length > 1) {
+    const current = Number(groupsCountSelect.value);
+    groupsCountSelect.innerHTML = options.map((n) => `<option value="${n}">Групп: ${n}</option>`).join('');
+    groupsCountSelect.value = String(options.includes(current) ? current : options[0]);
+    groupsCountSelect.hidden = false;
+  } else {
+    groupsCountSelect.hidden = true;
+  }
+
+  drawBtn.disabled = calc.status !== 'success';
+  drawBtn.textContent = groupsState ? 'Пережеребить заново' : 'Провести жеребьёвку';
+  clearGroupsBtn.hidden = !groupsState;
+
+  const sizeNote =
+    calc.status === 'success'
+      ? `Участников: ${named.length} → групп: ${calc.groupCount} (по ${calc.groups.join(', ')}), из групп выходят: ${calc.advancingPlayers}.`
+      : `Группы доступны, когда участников от ${MIN_GROUP_PLAYERS} до ${MAX_GROUP_PLAYERS}. Сейчас вписано: ${named.length}.`;
+
+  if (!groupsState) {
+    groupsStatusEl.textContent =
+      calc.status === 'success'
+        ? `${sizeNote} Восемь сильнейших по рейтингу распределяются змейкой, остальные — случайно.`
+        : sizeNote;
+    groupsBoard.innerHTML = '';
+    return;
+  }
+
+  groupsStatusEl.textContent =
+    'Жеребьёвка проведена и сохранится вместе с турниром. Чтобы поменять двух игроков местами, нажмите на одного, затем на другого. Чтобы перевести игрока в другую группу, нажмите на него, затем «＋ сюда» у нужной группы.';
+
+  const nameByUid = new Map(named.map((r) => [r.uid, r.name]));
+  const seedNumber = new Map(groupsState.seeds.map((uid, i) => [uid, i + 1]));
+  const selectedGroup = groupsState.groups.findIndex((g) => g.uids.includes(selectedUid));
+
+  const playerButton = (uid) => {
+    const seed = seedNumber.get(uid);
+    return `
+      <li>
+        <button type="button" class="group-player${uid === selectedUid ? ' is-selected' : ''}" data-uid="${uid}">
+          ${seed ? `<span class="seed-mark" title="Посев по рейтингу: №${seed}">${seed}</span>` : '<span class="seed-mark seed-mark--none"></span>'}
+          <span>${escapeHtml(nameByUid.get(uid) ?? '')}</span>
+        </button>
+      </li>`;
+  };
+
+  const cards = groupsState.groups
+    .map((group, index) => {
+      const canMoveHere = selectedUid !== null && selectedGroup !== index;
+      return `
+        <div class="group-card">
+          <div class="group-card__head">
+            <span class="group-card__title">Группа ${escapeHtml(group.id)}</span>
+            <span class="group-card__count">${group.uids.length}</span>
+            <button type="button" class="group-move-btn" data-group="${index}"${canMoveHere ? '' : ' hidden'}>＋ сюда</button>
+          </div>
+          <ul class="group-card__list">${group.uids.map(playerButton).join('')}</ul>
+        </div>`;
+    })
+    .join('');
+
+  const unassigned = unassignedRows(named);
+  const unassignedCard =
+    unassigned.length > 0
+      ? `
+        <div class="group-card group-card--unassigned">
+          <div class="group-card__head">
+            <span class="group-card__title">Без группы</span>
+            <span class="group-card__count">${unassigned.length}</span>
+          </div>
+          <ul class="group-card__list">${unassigned.map((r) => playerButton(r.uid)).join('')}</ul>
+          <p class="hint">Добавлены после жеребьёвки. Нажмите на игрока, затем «＋ сюда» у группы.</p>
+        </div>`
+      : '';
+
+  const selectionBar =
+    selectedUid !== null
+      ? `<div class="groups-selection">
+           <span>Выбран: <strong>${escapeHtml(nameByUid.get(selectedUid) ?? '')}</strong> — нажмите на другого игрока или «＋ сюда»</span>
+           <button type="button" class="groups-selection__cancel" data-cancel>Отмена</button>
+         </div>`
+      : '';
+
+  groupsBoard.innerHTML = `${selectionBar}<div class="groups-grid">${cards}${unassignedCard}</div>`;
+}
+
+/** Где сейчас игрок: { group: индекс группы или -1, pos } */
+function locate(uid) {
+  for (let g = 0; g < groupsState.groups.length; g += 1) {
+    const pos = groupsState.groups[g].uids.indexOf(uid);
+    if (pos !== -1) return { group: g, pos };
+  }
+  return { group: -1, pos: -1 };
+}
+
+function swapPlayers(uidA, uidB) {
+  const a = locate(uidA);
+  const b = locate(uidB);
+  if (a.group !== -1) groupsState.groups[a.group].uids[a.pos] = uidB;
+  if (b.group !== -1) groupsState.groups[b.group].uids[b.pos] = uidA;
+}
+
+function movePlayer(uid, groupIndex) {
+  const from = locate(uid);
+  if (from.group !== -1) groupsState.groups[from.group].uids.splice(from.pos, 1);
+  groupsState.groups[groupIndex].uids.push(uid);
+}
+
+groupsBoard.addEventListener('click', (e) => {
+  if (!groupsState) return;
+  const moveBtn = e.target.closest('.group-move-btn');
+  const playerBtn = e.target.closest('.group-player');
+
+  if (e.target.closest('[data-cancel]')) {
+    selectedUid = null;
+  } else if (moveBtn && selectedUid !== null) {
+    movePlayer(selectedUid, Number(moveBtn.dataset.group));
+    selectedUid = null;
+  } else if (playerBtn) {
+    const uid = playerBtn.dataset.uid;
+    if (selectedUid === null) selectedUid = uid;
+    else if (selectedUid === uid) selectedUid = null;
+    else {
+      swapPlayers(selectedUid, uid);
+      selectedUid = null;
+    }
+  } else {
+    return;
+  }
+  onRowsChanged();
+});
+
+drawBtn.addEventListener('click', runDraw);
+groupsCountSelect.addEventListener('change', onRowsChanged);
+clearGroupsBtn.addEventListener('click', () => {
+  if (!window.confirm('Убрать группы из этого турнира?')) return;
+  groupsState = null;
+  selectedUid = null;
+  onRowsChanged();
+});
+
+// ============================================================
 // GitHub API
 // ============================================================
 async function githubGetFile(token) {
   const url = `${API_BASE}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${DATA_PATH}?ref=${GITHUB_BRANCH}`;
   const res = await fetch(url, {
+    cache: 'no-store', // иначе браузер может минуту отдавать старую версию файла
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: 'application/vnd.github+json',
     },
   });
-  if (!res.ok) throw await buildGithubError(res);
+  if (!res.ok) throw await buildGithubError(res, false);
   const json = await res.json();
   const content = base64ToUtf8(json.content);
   const parsed = JSON.parse(content);
@@ -261,11 +600,11 @@ async function githubPutFile(token, dataObj, sha, message) {
       branch: GITHUB_BRANCH,
     }),
   });
-  if (!res.ok) throw await buildGithubError(res);
+  if (!res.ok) throw await buildGithubError(res, true);
   return res.json();
 }
 
-async function buildGithubError(res) {
+async function buildGithubError(res, isWrite) {
   let detail = '';
   try {
     const j = await res.json();
@@ -273,11 +612,20 @@ async function buildGithubError(res) {
   } catch (e) {
     /* ignore */
   }
+  const githubSays = detail ? ` Ответ GitHub: «${detail}».` : '';
   if (res.status === 401) return new Error('Токен недействителен или истёк. Нажмите «Сменить токен» и введите новый.');
-  if (res.status === 403)
-    return new Error(
-      'Доступ запрещён. Проверьте, что токену выдано право «Contents: Read and write» для этого репозитория.'
-    );
+  if (res.status === 403 || res.status === 429) {
+    const rateLimited = /rate limit/i.test(detail) || res.headers?.get?.('x-ratelimit-remaining') === '0';
+    if (rateLimited) {
+      return new Error(`GitHub временно ограничил число запросов. Подождите несколько минут и попробуйте снова.${githubSays}`);
+    }
+    if (isWrite) {
+      return new Error(
+        `GitHub не разрешил запись в репозиторий ${GITHUB_OWNER}/${GITHUB_REPO}, хотя чтение работает. Обычно это значит, что у токена для этого репозитория нет права «Contents: Read and write» (только чтение, или токен выдан на другой репозиторий). Создайте новый токен и введите его через «Сменить токен».${githubSays}`
+      );
+    }
+    return new Error(`Доступ запрещён. Проверьте, что токену выдан доступ к репозиторию ${GITHUB_OWNER}/${GITHUB_REPO}.${githubSays}`);
+  }
   if (res.status === 404)
     return new Error(
       'Репозиторий или файл данных не найдены. Проверьте GITHUB_OWNER/GITHUB_REPO в js/config.js и что файл data/db.json существует в репозитории.'
@@ -305,41 +653,69 @@ function setBanner(type, html) {
   formBanner.hidden = false;
   formBanner.className = `banner banner-${type}`;
   formBanner.innerHTML = html;
+  // На телефоне форма длинная — показываем сообщение, где бы ни был экран
+  formBanner.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
 }
 function hideBanner() {
   formBanner.hidden = true;
 }
+
+const quoteList = (names, max = 4) =>
+  names.slice(0, max).map((n) => `«${n}»`).join(', ') + (names.length > max ? ` и ещё ${names.length - max}` : '');
 
 function validateForm() {
   const name = nameInput.value.trim();
   const date = dateInput.value;
   const type = typeInput.value;
   const rows = readPlayerRows();
+  const named = rows.filter((r) => r.name !== '');
 
   if (!name) return { error: 'Укажите название турнира.' };
   if (!date) return { error: 'Укажите дату турнира.' };
 
-  // Строки, где заполнено только одно из двух полей — ошибка
-  const partial = rows.find((r) => (r.name !== '' && r.pointsRaw === '') || (r.name === '' && r.pointsRaw !== ''));
-  if (partial) return { error: 'У одного из игроков не заполнено имя или очки. Заполните оба поля или удалите строку.' };
+  if (rows.some((r) => r.name === '' && r.pointsRaw !== '')) {
+    return { error: 'В одной из строк вписаны очки, но нет имени игрока. Впишите имя или удалите строку.' };
+  }
+  if (named.length === 0) return { error: 'Добавьте хотя бы одного игрока.' };
 
-  const complete = readCompleteRows();
-  if (complete.length === 0) return { error: 'Добавьте хотя бы одного игрока с очками.' };
+  const duplicate = findDuplicateName(named);
+  if (duplicate) return { error: `Игрок «${duplicate}» указан в турнире более одного раза.` };
 
-  for (const r of complete) {
-    if (!Number.isFinite(r.points) || r.points < 0) {
+  // Очки: либо у всех (турнир сыгран), либо ни у кого (предстоящий турнир с жеребьёвкой)
+  const withPoints = named.filter((r) => r.pointsRaw !== '');
+  const hasResults = withPoints.length > 0;
+  if (hasResults && withPoints.length < named.length) {
+    const missing = named.filter((r) => r.pointsRaw === '').map((r) => r.name);
+    return { error: `Очки вписаны не у всех игроков. Нет очков у: ${quoteList(missing)}. Впишите очки или удалите эти строки.` };
+  }
+  if (!hasResults && !groupsState) {
+    return {
+      error: 'Впишите очки игроков. Если турнир ещё не прошёл — проведите жеребьёвку по группам, тогда его можно сохранить без очков.',
+    };
+  }
+  for (const r of withPoints) {
+    const points = Number(r.pointsRaw);
+    if (!Number.isFinite(points) || points < 0) {
       return { error: `Некорректные очки у игрока «${r.name}». Очки должны быть числом от 0 и больше.` };
     }
   }
 
-  const seen = new Set();
-  for (const r of complete) {
-    const norm = normName(r.name);
-    if (seen.has(norm)) return { error: `Игрок «${r.name}» указан в турнире более одного раза.` };
-    seen.add(norm);
+  if (groupsState) {
+    const unassigned = unassignedRows(named).map((r) => r.name);
+    if (unassigned.length > 0) {
+      return { error: `Игроки без группы: ${quoteList(unassigned)}. Нажмите на игрока в блоке «Без группы», затем «＋ сюда» у нужной группы.` };
+    }
   }
 
-  return { name, date, type, results: complete };
+  return {
+    name,
+    date,
+    type,
+    hasResults,
+    rows: named.map((r) => ({ uid: r.uid, name: r.name, points: hasResults ? Number(r.pointsRaw) : null })),
+    groups: groupsState ? groupsState.groups.filter((g) => g.uids.length > 0).map((g) => ({ id: g.id, uids: [...g.uids] })) : null,
+    seeds: groupsState ? [...groupsState.seeds] : null,
+  };
 }
 
 form.addEventListener('submit', async (e) => {
@@ -358,6 +734,7 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
+  saving = true;
   submitBtn.disabled = true;
   submitBtn.innerHTML = '<span class="spinner"></span>&nbsp; Сохраняем…';
 
@@ -365,31 +742,51 @@ form.addEventListener('submit', async (e) => {
     // Всегда берём самую свежую версию файла прямо перед записью
     const { data, sha } = await githubGetFile(token);
 
+    // Каждой строке формы — id игрока (существующего или нового)
     const newNames = [];
-    const tournamentResults = result.results.map((r) => {
-      const { id, isNew, player } = resolvePlayerId(data.players, r.name);
+    const playerIdByUid = new Map();
+    for (const row of result.rows) {
+      const { id, isNew, player } = resolvePlayerId(data.players, row.name);
       if (isNew) newNames.push(player.name);
-      return { playerId: id, points: r.points };
-    });
+      playerIdByUid.set(row.uid, id);
+    }
+
+    const tournamentResults = result.hasResults
+      ? result.rows.map((row) => ({ playerId: playerIdByUid.get(row.uid), points: row.points }))
+      : [];
+    const tournamentGroups = result.groups
+      ? result.groups.map((g) => ({ id: g.id, playerIds: g.uids.map((uid) => playerIdByUid.get(uid)) }))
+      : null;
+    const tournamentSeeds = result.seeds ? result.seeds.map((uid) => playerIdByUid.get(uid)) : null;
+
+    const applyTo = (tournament) => {
+      tournament.name = result.name;
+      tournament.date = result.date;
+      tournament.type = result.type;
+      tournament.results = tournamentResults;
+      if (tournamentGroups) {
+        tournament.groups = tournamentGroups;
+        tournament.seeds = tournamentSeeds;
+      } else {
+        delete tournament.groups;
+        delete tournament.seeds;
+      }
+    };
 
     const removedNames = [];
-    let commitMessage;
+    const wasEditing = Boolean(editingId);
 
     if (editingId) {
       const tournament = data.tournaments.find((t) => t.id === editingId);
       if (!tournament) {
         throw new Error('Этот турнир не найден в репозитории — возможно, его уже удалили. Обновите страницу.');
       }
-      const previousIds = tournament.results.map((r) => r.playerId);
+      const previousIds = [...participantIds(tournament)];
+      applyTo(tournament);
 
-      tournament.name = result.name;
-      tournament.date = result.date;
-      tournament.type = result.type;
-      tournament.results = tournamentResults;
-
-      // Игроки, которых убрали из этого турнира и у которых больше нет ни одного
-      // результата нигде, — это и есть ошибочно созданные дубли. Убираем их из списка игроков.
-      const stillPlaying = new Set(data.tournaments.flatMap((t) => t.results.map((r) => r.playerId)));
+      // Игроки, которых убрали из этого турнира и которые больше нигде не участвуют, —
+      // это ошибочно созданные дубли. Убираем их из списка игроков.
+      const stillPlaying = new Set(data.tournaments.flatMap((t) => [...participantIds(t)]));
       const orphanIds = new Set(previousIds.filter((id) => !stillPlaying.has(id)));
       if (orphanIds.size > 0) {
         data.players = data.players.filter((p) => {
@@ -398,35 +795,36 @@ form.addEventListener('submit', async (e) => {
           return false;
         });
       }
-      commitMessage = `Исправлен турнир: ${result.name} (${result.date})`;
     } else {
-      data.tournaments.push({
-        id: generateId('t'),
-        name: result.name,
-        date: result.date,
-        type: result.type,
-        results: tournamentResults,
-      });
-      commitMessage = `Турнир: ${result.name} (${result.date})`;
+      const tournament = { id: generateId('t') };
+      applyTo(tournament);
+      data.tournaments.push(tournament);
     }
 
-    await githubPutFile(token, data, sha, commitMessage);
+    const what = result.hasResults ? (wasEditing ? 'Исправлен турнир' : 'Турнир') : 'Жеребьёвка';
+    await githubPutFile(token, data, sha, `${what}: ${result.name} (${result.date})`);
 
-    const wasEditing = Boolean(editingId);
     editingId = null;
     applyRepoData(data); // подсказки имён и список турниров — сразу, не дожидаясь пересборки сайта
 
     const notes = [];
+    if (!result.hasResults) {
+      notes.push('Турнир опубликован как предстоящий, на его странице видны группы. Когда он пройдёт, выберите его в списке «Что делаем» и впишите очки.');
+    }
     if (newNames.length > 0) {
-      notes.push(`Добавлены новые игроки: ${newNames.map((n) => `«${escapeHtml(n)}»`).join(', ')}. Если кто-то из них уже был в базе под другим написанием — откройте этот турнир на исправление и выберите нужное имя из подсказки.`);
+      notes.push(`Добавлены новые игроки: ${escapeHtml(quoteList(newNames, 10))}. Если кто-то из них уже был в базе под другим написанием — откройте этот турнир на исправление и выберите нужное имя из подсказки.`);
     }
     if (removedNames.length > 0) {
-      notes.push(`Удалены из списка игроков (больше не участвуют ни в одном турнире): ${removedNames.map((n) => `«${escapeHtml(n)}»`).join(', ')}.`);
+      notes.push(`Удалены из списка игроков (больше не участвуют ни в одном турнире): ${escapeHtml(quoteList(removedNames, 10))}.`);
     }
+
+    const headline = result.hasResults
+      ? `Турнир «${escapeHtml(result.name)}» ${wasEditing ? 'исправлен' : 'сохранён'}.`
+      : `Жеребьёвка турнира «${escapeHtml(result.name)}» сохранена.`;
 
     setBanner(
       'success',
-      `Турнир «${escapeHtml(result.name)}» ${wasEditing ? 'исправлен' : 'сохранён'}. Изменения появятся на сайте в течение минуты.
+      `${headline} Изменения появятся на сайте в течение минуты.
        ${notes.map((n) => `<div style="margin-top:8px;">${n}</div>`).join('')}
        <div class="banner-actions">
          <button type="button" class="btn btn-secondary" id="add-another-btn">Добавить ещё турнир</button>
@@ -439,18 +837,26 @@ form.addEventListener('submit', async (e) => {
   } catch (err) {
     setBanner('error', escapeHtml(err.message || 'Не удалось сохранить турнир.'));
   } finally {
+    saving = false;
     submitBtn.disabled = false;
-    updateModeLabels();
+    updateModeLabels(namedRows());
   }
 });
 
-function updateModeLabels() {
+function updateModeLabels(named) {
   formTitle.textContent = editingId ? 'Исправление турнира' : 'Новый турнир';
-  submitBtn.textContent = editingId ? 'Сохранить изменения' : 'Сохранить турнир';
+  deleteBtn.hidden = !editingId;
+  if (saving) return;
+  const noPoints = named.every((r) => r.pointsRaw === '');
+  if (groupsState && noPoints && named.length > 0) submitBtn.textContent = 'Сохранить жеребьёвку';
+  else submitBtn.textContent = editingId ? 'Сохранить изменения' : 'Сохранить турнир';
 }
 
 function resetFormFieldsOnly() {
   editingId = null;
+  groupsState = null;
+  selectedUid = null;
+  clearUndo();
   editSelect.value = '';
   nameInput.value = '';
   dateInput.value = '';
@@ -458,8 +864,7 @@ function resetFormFieldsOnly() {
   playersRowsEl.innerHTML = '';
   addPlayerRow();
   addPlayerRow();
-  updatePreview();
-  updateModeLabels();
+  onRowsChanged();
 }
 
 function resetForm() {
@@ -468,20 +873,105 @@ function resetForm() {
   nameInput.focus();
 }
 
-/** Заполняет форму данными сохранённого турнира (игроки — в порядке мест). */
+/** Заполняет форму данными сохранённого турнира. */
 function loadTournamentIntoForm(tournament) {
   const nameById = new Map(knownPlayers.map((p) => [p.id, p.name]));
   editingId = tournament.id;
+  selectedUid = null;
+  clearUndo();
   nameInput.value = tournament.name;
   dateInput.value = tournament.date;
   typeInput.value = tournament.type;
   playersRowsEl.innerHTML = '';
-  [...tournament.results]
+
+  // Сначала игроки с очками (в порядке мест), затем участники групп, у которых очков ещё нет
+  const uidByPlayerId = new Map();
+  [...(tournament.results ?? [])]
     .sort((a, b) => b.points - a.points)
-    .forEach((r) => addPlayerRow(nameById.get(r.playerId) ?? '', r.points));
-  updatePreview();
-  updateModeLabels();
+    .forEach((r) => uidByPlayerId.set(r.playerId, addPlayerRow(nameById.get(r.playerId) ?? '', r.points)));
+  for (const group of tournament.groups ?? []) {
+    for (const playerId of group.playerIds ?? []) {
+      if (!uidByPlayerId.has(playerId)) uidByPlayerId.set(playerId, addPlayerRow(nameById.get(playerId) ?? '', ''));
+    }
+  }
+
+  groupsState = tournament.groups
+    ? {
+        groups: tournament.groups.map((g) => ({
+          id: g.id,
+          uids: (g.playerIds ?? []).map((id) => uidByPlayerId.get(id)).filter(Boolean),
+        })),
+        seeds: (tournament.seeds ?? []).map((id) => uidByPlayerId.get(id)).filter(Boolean),
+      }
+    : null;
+
+  onRowsChanged();
 }
+
+// ============================================================
+// Удаление турнира
+// ============================================================
+deleteBtn.addEventListener('click', async () => {
+  if (!editingId || saving) return;
+  const known = knownTournaments.find((t) => t.id === editingId);
+  const label = known ? `«${known.name}» от ${formatDate(known.date)}` : 'этот турнир';
+  if (!window.confirm(`Удалить турнир ${label}? Он исчезнет с сайта, а его очки — из рейтинга.`)) return;
+
+  const token = getToken();
+  if (!token) {
+    showTokenPanel();
+    return;
+  }
+
+  hideBanner();
+  saving = true;
+  submitBtn.disabled = true;
+  deleteBtn.disabled = true;
+  deleteBtn.innerHTML = '<span class="spinner"></span>&nbsp; Удаляем…';
+
+  try {
+    const { data, sha } = await githubGetFile(token);
+    const tournament = data.tournaments.find((t) => t.id === editingId);
+    if (!tournament) {
+      throw new Error('Этот турнир не найден в репозитории — возможно, его уже удалили. Обновите страницу.');
+    }
+    const previousIds = [...participantIds(tournament)];
+    data.tournaments = data.tournaments.filter((t) => t.id !== editingId);
+
+    // Игроки, которые участвовали только в этом турнире, остаются без единого турнира — убираем их
+    const stillPlaying = new Set(data.tournaments.flatMap((t) => [...participantIds(t)]));
+    const orphanIds = new Set(previousIds.filter((id) => !stillPlaying.has(id)));
+    const removedNames = [];
+    data.players = data.players.filter((p) => {
+      if (!orphanIds.has(p.id)) return true;
+      removedNames.push(p.name);
+      return false;
+    });
+
+    await githubPutFile(token, data, sha, `Удалён турнир: ${tournament.name} (${tournament.date})`);
+
+    editingId = null;
+    applyRepoData(data);
+    const note =
+      removedNames.length > 0
+        ? `<div style="margin-top:8px;">Вместе с ним из списка игроков убраны те, кто участвовал только в этом турнире: ${escapeHtml(quoteList(removedNames, 10))}.</div>`
+        : '';
+    setBanner(
+      'success',
+      `Турнир «${escapeHtml(tournament.name)}» удалён. Изменения появятся на сайте в течение минуты.${note}
+       <div style="margin-top:8px;">Если удалили по ошибке — прежнюю версию файла <code>data/db.json</code> можно вернуть из истории изменений на GitHub.</div>`
+    );
+    resetFormFieldsOnly();
+  } catch (err) {
+    setBanner('error', escapeHtml(err.message || 'Не удалось удалить турнир.'));
+  } finally {
+    saving = false;
+    submitBtn.disabled = false;
+    deleteBtn.disabled = false;
+    deleteBtn.textContent = 'Удалить турнир';
+    updateModeLabels(namedRows());
+  }
+});
 
 editSelect.addEventListener('change', () => {
   hideBanner();

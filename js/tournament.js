@@ -36,7 +36,45 @@ async function init() {
     badge.textContent = typeLabel(tournament.type);
     badge.classList.add(`type-badge--${tournament.type}`);
 
-    const standings = computeTournamentStandings(tournament, playersMap(players));
+    const byId = playersMap(players);
+    const hasResults = (tournament.results?.length ?? 0) > 0;
+    const groups = (tournament.groups ?? []).filter((g) => (g.playerIds ?? []).length > 0);
+
+    // Группы (жеребьёвка) — если турнир проводится с групповым этапом
+    if (groups.length > 0) {
+      const seedNumber = new Map((tournament.seeds ?? []).map((playerId, i) => [playerId, i + 1]));
+      document.getElementById('groups-grid').innerHTML = groups
+        .map(
+          (group) => `
+          <div class="group-card">
+            <div class="group-card__head">
+              <span class="group-card__title">Группа ${escapeHtml(group.id)}</span>
+              <span class="group-card__count">${group.playerIds.length}</span>
+            </div>
+            <ul class="group-card__list">
+              ${group.playerIds
+                .map((playerId) => {
+                  const seed = seedNumber.get(playerId);
+                  const mark = seed
+                    ? `<span class="seed-mark" title="Посев по рейтингу: №${seed}">${seed}</span>`
+                    : '<span class="seed-mark seed-mark--none"></span>';
+                  return `<li><a class="group-player" href="player.html?id=${encodeURIComponent(playerId)}">${mark}<span>${escapeHtml(byId.get(playerId)?.name ?? 'Неизвестный игрок')}</span></a></li>`;
+                })
+                .join('')}
+            </ul>
+          </div>`
+        )
+        .join('');
+      document.getElementById('groups-note').textContent =
+        seedNumber.size > 0 ? 'цифра у имени — номер посева по рейтингу' : '';
+      document.getElementById('groups-section').hidden = false;
+      document.getElementById('results-title').hidden = !hasResults;
+    }
+
+    document.getElementById('upcoming-note').hidden = hasResults;
+    document.getElementById('standings-wrap').hidden = !hasResults;
+
+    const standings = computeTournamentStandings(tournament, byId);
     document.getElementById('standings-body').innerHTML = standings
       .map(
         (row, i) => `

@@ -49,7 +49,20 @@
         <span id="tournament-date" class="tournament-header__date"></span>
       </div>
 
-      <div class="table-wrap">
+      <section id="groups-section" hidden>
+        <div class="section-title">
+          <h2>Группы</h2>
+          <span id="groups-note" class="tournament-header__date"></span>
+        </div>
+        <div id="groups-grid" class="groups-grid groups-grid--public"></div>
+      </section>
+
+      <p id="upcoming-note" class="banner banner-info" hidden>Турнир ещё не сыгран — результаты появятся здесь после его завершения.</p>
+
+      <div class="section-title" id="results-title" hidden>
+        <h2>Результаты</h2>
+      </div>
+      <div class="table-wrap" id="standings-wrap">
         <table class="rating-table">
           <thead>
             <tr>

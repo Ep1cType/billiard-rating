@@ -11,13 +11,18 @@ function render(tournaments) {
   const sorted = [...tournaments].sort((a, b) => (a.date < b.date ? 1 : -1));
   listEl.innerHTML = sorted
     .map((t) => {
-      const count = t.results?.length ?? 0;
+      const upcoming = (t.results?.length ?? 0) === 0;
+      const count = upcoming
+        ? new Set((t.groups ?? []).flatMap((g) => g.playerIds ?? [])).size
+        : t.results.length;
       const playersWord = pluralPlayers(count);
+      const upcomingTag = upcoming ? '<span class="upcoming-tag">жеребьёвка</span>' : '';
       return `
         <a class="tournament-list-item" href="tournament.html?id=${encodeURIComponent(t.id)}">
           <div class="tournament-list-item__main">
             <span class="type-badge type-badge--${t.type}">${typeLabel(t.type)}</span>
             <span class="tournament-list-item__name">${escapeHtml(t.name)}</span>
+            ${upcomingTag}
           </div>
           <div class="tournament-list-item__meta">${formatDate(t.date)} · ${count} ${playersWord}</div>
         </a>`;
