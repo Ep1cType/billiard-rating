@@ -3793,6 +3793,57 @@
           "points": 25
         }
       ]
+    },
+    {
+      "id": "t_mwfdaa7e82d5x5",
+      "name": "тест",
+      "date": "2026-11-13",
+      "type": "mini",
+      "results": [],
+      "groups": [
+        {
+          "id": "A",
+          "playerIds": [
+            "p008",
+            "p054",
+            "p_mw92n5r0743g78"
+          ]
+        },
+        {
+          "id": "B",
+          "playerIds": [
+            "p011",
+            "p041",
+            "p_mtzu37qdlw51u1"
+          ]
+        },
+        {
+          "id": "C",
+          "playerIds": [
+            "p014",
+            "p039",
+            "p_mvnpfe1nvc6286"
+          ]
+        },
+        {
+          "id": "D",
+          "playerIds": [
+            "p035",
+            "p024",
+            "p059"
+          ]
+        }
+      ],
+      "seeds": [
+        "p008",
+        "p011",
+        "p014",
+        "p035",
+        "p024",
+        "p039",
+        "p041",
+        "p054"
+      ]
     }
   ]
 }
