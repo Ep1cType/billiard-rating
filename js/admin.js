@@ -1,7 +1,6 @@
 import { GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH, DATA_PATH } from './config.js';
-import { loadData } from './data.js';
-import { withPlaces } from './ranking.js';
-import { generateId, utf8ToBase64, base64ToUtf8, escapeHtml } from './utils.js';
+import { withPlaces, typeLabel } from './ranking.js';
+import { generateId, utf8ToBase64, base64ToUtf8, escapeHtml, formatDate } from './utils.js';
 
 const TOKEN_KEY = 'billiard_admin_token';
 const API_BASE = 'https://api.github.com';
@@ -26,8 +25,18 @@ const previewWrap = document.getElementById('preview-wrap');
 const previewBody = document.getElementById('preview-body');
 const formBanner = document.getElementById('form-banner');
 const submitBtn = document.getElementById('submit-btn');
+const editSelect = document.getElementById('edit-select');
+const formTitle = document.getElementById('form-title');
+const playersCountEl = document.getElementById('players-count');
 
 let knownPlayers = []; // [{id, name}] — for datalist + matching existing players
+let knownTournaments = []; // турниры из репозитория — для списка «что исправляем»
+let editingId = null; // id турнира, который сейчас правим (null = добавляем новый)
+
+/** Имена сравниваем без учёта регистра, «ё/е» и лишних пробелов — чтобы «Артём» и «Артем» не стали двумя игроками. */
+function normName(name) {
+  return String(name).trim().replace(/\s+/g, ' ').toLowerCase().replace(/ё/g, 'е');
+}
 
 // ============================================================
 // Конфигурация
@@ -91,15 +100,25 @@ logoutBtn.addEventListener('click', () => {
 // ============================================================
 // Данные для даталиста (список уже известных игроков)
 // ============================================================
-async function refreshKnownPlayers() {
-  try {
-    const { players } = await loadData();
-    knownPlayers = players;
-    datalistEl.innerHTML = players.map((p) => `<option value="${escapeHtml(p.name)}"></option>`).join('');
-  } catch (err) {
-    // Некритично: без даталиста форма всё равно работает, просто без автодополнения.
-    console.warn('Не удалось загрузить список игроков для автодополнения', err);
-  }
+/** Обновляет подсказки имён и список турниров для правки по свежим данным из репозитория. */
+function applyRepoData(data) {
+  knownPlayers = data.players;
+  knownTournaments = data.tournaments;
+  datalistEl.innerHTML = [...knownPlayers]
+    .sort((a, b) => a.name.localeCompare(b.name, 'ru'))
+    .map((p) => `<option value="${escapeHtml(p.name)}"></option>`)
+    .join('');
+
+  const sorted = [...knownTournaments].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+  editSelect.innerHTML =
+    '<option value="">➕ Добавить новый турнир</option>' +
+    sorted
+      .map(
+        (t) =>
+          `<option value="${escapeHtml(t.id)}">✏️ ${escapeHtml(formatDate(t.date))} — ${escapeHtml(t.name)} (${escapeHtml(typeLabel(t.type))})</option>`
+      )
+      .join('');
+  editSelect.value = editingId && knownTournaments.some((t) => t.id === editingId) ? editingId : '';
 }
 
 /**
@@ -117,7 +136,9 @@ async function tryEnterAdminMode(token) {
   }
 
   try {
-    await githubGetFile(token); // заодно проверяет, что токен рабочий и файл данных доступен
+    // Заодно проверяет, что токен рабочий, и даёт самые свежие данные (без ожидания пересборки сайта)
+    const { data } = await githubGetFile(token);
+    applyRepoData(data);
   } catch (err) {
     tokenErrorEl.hidden = false;
     tokenErrorEl.textContent = err.message || 'Не удалось проверить токен.';
@@ -125,7 +146,6 @@ async function tryEnterAdminMode(token) {
   }
 
   showAdminPanel();
-  await refreshKnownPlayers();
   if (playersRowsEl.children.length === 0) {
     addPlayerRow();
     addPlayerRow();
@@ -136,7 +156,7 @@ async function tryEnterAdminMode(token) {
 // ============================================================
 // Строки "игрок + очки"
 // ============================================================
-function addPlayerRow() {
+function addPlayerRow(name = '', points = '') {
   const row = document.createElement('div');
   row.className = 'player-row';
   row.innerHTML = `
@@ -148,12 +168,17 @@ function addPlayerRow() {
     row.remove();
     updatePreview();
   });
+  row.querySelector('.player-name-input').value = name;
+  row.querySelector('.player-points-input').value = points;
   row.querySelector('.player-name-input').addEventListener('input', updatePreview);
   row.querySelector('.player-points-input').addEventListener('input', updatePreview);
   playersRowsEl.appendChild(row);
 }
 
-addRowBtn.addEventListener('click', addPlayerRow);
+addRowBtn.addEventListener('click', () => {
+  addPlayerRow();
+  playersRowsEl.lastElementChild.querySelector('.player-name-input').focus();
+});
 
 function readPlayerRows() {
   return [...playersRowsEl.querySelectorAll('.player-row')].map((row) => ({
@@ -173,6 +198,9 @@ function readCompleteRows() {
 // Предпросмотр мест
 // ============================================================
 function updatePreview() {
+  const filled = readPlayerRows().filter((r) => r.name !== '').length;
+  playersCountEl.textContent = filled > 0 ? `· ${filled}` : '';
+
   const rows = readCompleteRows().filter((r) => Number.isFinite(r.points) && r.points >= 0);
   if (rows.length === 0) {
     previewWrap.hidden = true;
@@ -181,8 +209,9 @@ function updatePreview() {
   const withRanks = withPlaces(rows, 'points');
   previewBody.innerHTML = withRanks
     .map(
-      (r) => `
+      (r, i) => `
       <tr>
+        <td class="idx">${i + 1}</td>
         <td class="place-cell"><span class="ball-badge ${r.place <= 3 ? `rank-${r.place}` : ''}">${r.place}</span></td>
         <td class="name-cell">${escapeHtml(r.name)}</td>
         <td class="num points-cell">${r.points}</td>
@@ -261,10 +290,10 @@ async function buildGithubError(res) {
 // Сохранение игроков (сопоставление с существующими по имени)
 // ============================================================
 function resolvePlayerId(players, name) {
-  const norm = name.trim().toLowerCase();
-  const existing = players.find((p) => p.name.trim().toLowerCase() === norm);
+  const norm = normName(name);
+  const existing = players.find((p) => normName(p.name) === norm);
   if (existing) return { id: existing.id, isNew: false };
-  const created = { id: generateId('p'), name: name.trim() };
+  const created = { id: generateId('p'), name: name.trim().replace(/\s+/g, ' ') };
   players.push(created);
   return { id: created.id, isNew: true, player: created };
 }
@@ -305,7 +334,7 @@ function validateForm() {
 
   const seen = new Set();
   for (const r of complete) {
-    const norm = r.name.toLowerCase();
+    const norm = normName(r.name);
     if (seen.has(norm)) return { error: `Игрок «${r.name}» указан в турнире более одного раза.` };
     seen.add(norm);
   }
@@ -330,39 +359,75 @@ form.addEventListener('submit', async (e) => {
   }
 
   submitBtn.disabled = true;
-  const originalLabel = submitBtn.textContent;
   submitBtn.innerHTML = '<span class="spinner"></span>&nbsp; Сохраняем…';
 
   try {
+    // Всегда берём самую свежую версию файла прямо перед записью
     const { data, sha } = await githubGetFile(token);
 
-    const newlyCreated = [];
+    const newNames = [];
     const tournamentResults = result.results.map((r) => {
       const { id, isNew, player } = resolvePlayerId(data.players, r.name);
-      if (isNew) newlyCreated.push(player);
+      if (isNew) newNames.push(player.name);
       return { playerId: id, points: r.points };
     });
 
-    const newTournament = {
-      id: generateId('t'),
-      name: result.name,
-      date: result.date,
-      type: result.type,
-      results: tournamentResults,
-    };
-    data.tournaments.push(newTournament);
+    const removedNames = [];
+    let commitMessage;
 
-    await githubPutFile(token, data, sha, `Турнир: ${result.name} (${result.date})`);
+    if (editingId) {
+      const tournament = data.tournaments.find((t) => t.id === editingId);
+      if (!tournament) {
+        throw new Error('Этот турнир не найден в репозитории — возможно, его уже удалили. Обновите страницу.');
+      }
+      const previousIds = tournament.results.map((r) => r.playerId);
 
-    // Обновляем локальный список игроков для автодополнения, не дожидаясь пересборки сайта
-    if (newlyCreated.length > 0) {
-      knownPlayers = [...knownPlayers, ...newlyCreated];
-      datalistEl.innerHTML = knownPlayers.map((p) => `<option value="${escapeHtml(p.name)}"></option>`).join('');
+      tournament.name = result.name;
+      tournament.date = result.date;
+      tournament.type = result.type;
+      tournament.results = tournamentResults;
+
+      // Игроки, которых убрали из этого турнира и у которых больше нет ни одного
+      // результата нигде, — это и есть ошибочно созданные дубли. Убираем их из списка игроков.
+      const stillPlaying = new Set(data.tournaments.flatMap((t) => t.results.map((r) => r.playerId)));
+      const orphanIds = new Set(previousIds.filter((id) => !stillPlaying.has(id)));
+      if (orphanIds.size > 0) {
+        data.players = data.players.filter((p) => {
+          if (!orphanIds.has(p.id)) return true;
+          removedNames.push(p.name);
+          return false;
+        });
+      }
+      commitMessage = `Исправлен турнир: ${result.name} (${result.date})`;
+    } else {
+      data.tournaments.push({
+        id: generateId('t'),
+        name: result.name,
+        date: result.date,
+        type: result.type,
+        results: tournamentResults,
+      });
+      commitMessage = `Турнир: ${result.name} (${result.date})`;
+    }
+
+    await githubPutFile(token, data, sha, commitMessage);
+
+    const wasEditing = Boolean(editingId);
+    editingId = null;
+    applyRepoData(data); // подсказки имён и список турниров — сразу, не дожидаясь пересборки сайта
+
+    const notes = [];
+    if (newNames.length > 0) {
+      notes.push(`Добавлены новые игроки: ${newNames.map((n) => `«${escapeHtml(n)}»`).join(', ')}. Если кто-то из них уже был в базе под другим написанием — откройте этот турнир на исправление и выберите нужное имя из подсказки.`);
+    }
+    if (removedNames.length > 0) {
+      notes.push(`Удалены из списка игроков (больше не участвуют ни в одном турнире): ${removedNames.map((n) => `«${escapeHtml(n)}»`).join(', ')}.`);
     }
 
     setBanner(
       'success',
-      `Турнир «${escapeHtml(result.name)}» сохранён. Изменения появятся на сайте в течение минуты.
+      `Турнир «${escapeHtml(result.name)}» ${wasEditing ? 'исправлен' : 'сохранён'}. Изменения появятся на сайте в течение минуты.
+       ${notes.map((n) => `<div style="margin-top:8px;">${n}</div>`).join('')}
        <div class="banner-actions">
          <button type="button" class="btn btn-secondary" id="add-another-btn">Добавить ещё турнир</button>
          <a class="btn btn-ghost" href="tournaments.html">Смотреть турниры</a>
@@ -375,18 +440,26 @@ form.addEventListener('submit', async (e) => {
     setBanner('error', escapeHtml(err.message || 'Не удалось сохранить турнир.'));
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = originalLabel;
+    updateModeLabels();
   }
 });
 
+function updateModeLabels() {
+  formTitle.textContent = editingId ? 'Исправление турнира' : 'Новый турнир';
+  submitBtn.textContent = editingId ? 'Сохранить изменения' : 'Сохранить турнир';
+}
+
 function resetFormFieldsOnly() {
+  editingId = null;
+  editSelect.value = '';
   nameInput.value = '';
   dateInput.value = '';
   typeInput.value = 'mini';
   playersRowsEl.innerHTML = '';
   addPlayerRow();
   addPlayerRow();
-  previewWrap.hidden = true;
+  updatePreview();
+  updateModeLabels();
 }
 
 function resetForm() {
@@ -394,6 +467,28 @@ function resetForm() {
   resetFormFieldsOnly();
   nameInput.focus();
 }
+
+/** Заполняет форму данными сохранённого турнира (игроки — в порядке мест). */
+function loadTournamentIntoForm(tournament) {
+  const nameById = new Map(knownPlayers.map((p) => [p.id, p.name]));
+  editingId = tournament.id;
+  nameInput.value = tournament.name;
+  dateInput.value = tournament.date;
+  typeInput.value = tournament.type;
+  playersRowsEl.innerHTML = '';
+  [...tournament.results]
+    .sort((a, b) => b.points - a.points)
+    .forEach((r) => addPlayerRow(nameById.get(r.playerId) ?? '', r.points));
+  updatePreview();
+  updateModeLabels();
+}
+
+editSelect.addEventListener('change', () => {
+  hideBanner();
+  const tournament = knownTournaments.find((t) => t.id === editSelect.value);
+  if (tournament) loadTournamentIntoForm(tournament);
+  else resetFormFieldsOnly();
+});
 
 // ============================================================
 // Инициализация

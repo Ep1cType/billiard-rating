@@ -678,18 +678,55 @@ input:focus, select:focus {
 }
 
 /* Player row in admin form */
+#players-rows {
+  counter-reset: player-row;
+}
+
 .player-row {
   display: grid;
-  grid-template-columns: 1fr 130px 40px;
+  grid-template-columns: 28px 1fr 130px 40px;
   gap: 10px;
   margin-bottom: 10px;
   align-items: center;
 }
 
+/* Порядковый номер строки — считается автоматически, в том числе после удаления строк */
+.player-row::before {
+  counter-increment: player-row;
+  content: counter(player-row);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--chalk-faint);
+  text-align: right;
+}
+
 @media (max-width: 560px) {
   .player-row {
-    grid-template-columns: 1fr 90px 36px;
+    grid-template-columns: 22px 1fr 80px 36px;
+    gap: 8px;
   }
+}
+
+.players-count {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--chalk-faint);
+  margin-left: 6px;
+}
+
+/* Колонка «№» — сквозная нумерация строк по порядку (в отличие от «Места», которое может делиться) */
+.rating-table th.idx,
+.rating-table td.idx {
+  width: 1%;
+  text-align: right;
+  padding-right: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--chalk-faint);
+  white-space: nowrap;
+}
+.rating-table th.idx {
+  color: var(--brass-light);
 }
 
 .player-row .remove-row-btn {

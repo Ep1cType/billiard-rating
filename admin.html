@@ -47,7 +47,7 @@
   <div class="container" style="max-width: 720px;">
 
     <div class="section-title">
-      <h2 style="font-size:1.8rem;">Добавить турнир</h2>
+      <h2 style="font-size:1.8rem;">Турниры: добавить или исправить</h2>
     </div>
 
     <div id="checking-token" class="loading-row" hidden><span class="spinner"></span>&nbsp; Проверяем сохранённый токен…</div>
@@ -79,8 +79,16 @@
     <!-- Форма добавления турнира -->
     <section class="panel" id="admin-panel" hidden>
       <div class="panel-header">
-        <h3 style="margin:0;">Новый турнир</h3>
+        <h3 style="margin:0;" id="form-title">Новый турнир</h3>
         <button type="button" id="logout-btn" class="btn btn-ghost">Сменить токен</button>
+      </div>
+
+      <div class="field">
+        <label for="edit-select">Что делаем</label>
+        <select id="edit-select">
+          <option value="">➕ Добавить новый турнир</option>
+        </select>
+        <p class="hint">Чтобы исправить уже сохранённый турнир (например, заменить ошибочно добавленного игрока), выберите его в этом списке.</p>
       </div>
 
       <form id="tournament-form">
@@ -105,7 +113,7 @@
         </div>
 
         <div class="field">
-          <label>Игроки и очки</label>
+          <label>Игроки и очки <span id="players-count" class="players-count"></span></label>
           <div id="players-rows"></div>
           <button type="button" id="add-player-row-btn" class="btn btn-secondary">+ Добавить игрока</button>
           <p class="hint">Начните вводить имя — если игрок уже есть в базе, выберите его из списка, чтобы не создать дубль. Новое имя автоматически станет новым игроком.</p>
@@ -117,7 +125,7 @@
           <div class="section-title"><h2 style="font-size:1rem;">Предпросмотр мест</h2></div>
           <div class="table-wrap" style="margin-bottom:20px;">
             <table class="rating-table" id="preview-table">
-              <thead><tr><th>Место</th><th>Игрок</th><th class="num">Очки</th></tr></thead>
+              <thead><tr><th class="idx">№</th><th>Место</th><th>Игрок</th><th class="num">Очки</th></tr></thead>
               <tbody id="preview-body"></tbody>
             </table>
           </div>

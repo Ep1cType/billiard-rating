@@ -39,8 +39,9 @@ async function init() {
     const standings = computeTournamentStandings(tournament, playersMap(players));
     document.getElementById('standings-body').innerHTML = standings
       .map(
-        (row) => `
+        (row, i) => `
         <tr>
+          <td class="idx">${i + 1}</td>
           <td class="place-cell">${ballBadge(row.place)}</td>
           <td class="name-cell"><a class="player-link" href="player.html?id=${encodeURIComponent(row.playerId)}">${escapeHtml(row.name)}</a></td>
           <td class="num points-cell">${row.points}</td>
