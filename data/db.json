@@ -3799,14 +3799,63 @@
       "name": "тест",
       "date": "2026-11-13",
       "type": "mini",
-      "results": [],
+      "results": [
+        {
+          "playerId": "p008",
+          "points": 500
+        },
+        {
+          "playerId": "p054",
+          "points": 300
+        },
+        {
+          "playerId": "p_mw92n5r0743g78",
+          "points": 180
+        },
+        {
+          "playerId": "p011",
+          "points": 180
+        },
+        {
+          "playerId": "p041",
+          "points": 90
+        },
+        {
+          "playerId": "p_mtzu37qdlw51u1",
+          "points": 90
+        },
+        {
+          "playerId": "p014",
+          "points": 90
+        },
+        {
+          "playerId": "p039",
+          "points": 90
+        },
+        {
+          "playerId": "p_mvnpfe1nvc6286",
+          "points": 45
+        },
+        {
+          "playerId": "p035",
+          "points": 45
+        },
+        {
+          "playerId": "p024",
+          "points": 45
+        },
+        {
+          "playerId": "p059",
+          "points": 45
+        }
+      ],
       "groups": [
         {
           "id": "A",
           "playerIds": [
             "p008",
             "p054",
-            "p_mw92n5r0743g78"
+            "p_mtzu37qdlw51u1"
           ]
         },
         {
@@ -3814,7 +3863,7 @@
           "playerIds": [
             "p011",
             "p041",
-            "p_mtzu37qdlw51u1"
+            "p_mw92n5r0743g78"
           ]
         },
         {
