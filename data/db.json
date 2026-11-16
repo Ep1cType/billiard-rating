@@ -307,6 +307,26 @@
     {
       "id": "p_mw92n5r0743g78",
       "name": "Быков Александр"
+    },
+    {
+      "id": "p_mwj13dckotvftg",
+      "name": "Бутин Михаил"
+    },
+    {
+      "id": "p_mwj13dcml9idam",
+      "name": "Погосян Арам"
+    },
+    {
+      "id": "p_mwj13dcn4r4bg7",
+      "name": "Иванов Олег"
+    },
+    {
+      "id": "p_mwj13dcn4zwh8b",
+      "name": "Буцик Дмитрий"
+    },
+    {
+      "id": "p_mwj13dcoligzbs",
+      "name": "Антонян Рубен"
     }
   ],
   "tournaments": [
@@ -3790,6 +3810,142 @@
         },
         {
           "playerId": "p026",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t_mwj13dcpwekdi4",
+      "name": "37 тур. Динамичная пирамида.",
+      "date": "2026-11-15",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p008",
+          "points": 500
+        },
+        {
+          "playerId": "p001",
+          "points": 300
+        },
+        {
+          "playerId": "p003",
+          "points": 180
+        },
+        {
+          "playerId": "p_mwj13dckotvftg",
+          "points": 180
+        },
+        {
+          "playerId": "p037",
+          "points": 90
+        },
+        {
+          "playerId": "p014",
+          "points": 90
+        },
+        {
+          "playerId": "p035",
+          "points": 90
+        },
+        {
+          "playerId": "p007",
+          "points": 90
+        },
+        {
+          "playerId": "p033",
+          "points": 45
+        },
+        {
+          "playerId": "p012",
+          "points": 45
+        },
+        {
+          "playerId": "p021",
+          "points": 45
+        },
+        {
+          "playerId": "p023",
+          "points": 45
+        },
+        {
+          "playerId": "p036",
+          "points": 45
+        },
+        {
+          "playerId": "p017",
+          "points": 45
+        },
+        {
+          "playerId": "p020",
+          "points": 45
+        },
+        {
+          "playerId": "p016",
+          "points": 45
+        },
+        {
+          "playerId": "p005",
+          "points": 25
+        },
+        {
+          "playerId": "p_mwj13dcml9idam",
+          "points": 25
+        },
+        {
+          "playerId": "p045",
+          "points": 25
+        },
+        {
+          "playerId": "p029",
+          "points": 25
+        },
+        {
+          "playerId": "p026",
+          "points": 25
+        },
+        {
+          "playerId": "p063",
+          "points": 25
+        },
+        {
+          "playerId": "p027",
+          "points": 25
+        },
+        {
+          "playerId": "p042",
+          "points": 25
+        },
+        {
+          "playerId": "p043",
+          "points": 25
+        },
+        {
+          "playerId": "p_mwj13dcn4r4bg7",
+          "points": 25
+        },
+        {
+          "playerId": "p_mwj13dcn4zwh8b",
+          "points": 25
+        },
+        {
+          "playerId": "p_mwj13dcoligzbs",
+          "points": 25
+        },
+        {
+          "playerId": "p040",
+          "points": 25
+        },
+        {
+          "playerId": "p013",
+          "points": 25
+        },
+        {
+          "playerId": "p022",
+          "points": 25
+        },
+        {
+          "playerId": "p041",
           "points": 25
         }
       ]
