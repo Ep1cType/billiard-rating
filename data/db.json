@@ -327,6 +327,10 @@
     {
       "id": "p_mwj13dcoligzbs",
       "name": "Антонян Рубен"
+    },
+    {
+      "id": "p_mwtei5vrmh15ca",
+      "name": "Ковешников Евгений"
     }
   ],
   "tournaments": [
@@ -3946,6 +3950,110 @@
         },
         {
           "playerId": "p041",
+          "points": 25
+        }
+      ]
+    },
+    {
+      "id": "t_mwtei5vrwjbhl7",
+      "name": "38 тур. Свободная пирамида с продолжением.",
+      "date": "2026-11-22",
+      "type": "mini",
+      "results": [
+        {
+          "playerId": "p001",
+          "points": 500
+        },
+        {
+          "playerId": "p002",
+          "points": 300
+        },
+        {
+          "playerId": "p012",
+          "points": 180
+        },
+        {
+          "playerId": "p003",
+          "points": 180
+        },
+        {
+          "playerId": "p022",
+          "points": 90
+        },
+        {
+          "playerId": "p017",
+          "points": 90
+        },
+        {
+          "playerId": "p004",
+          "points": 90
+        },
+        {
+          "playerId": "p007",
+          "points": 90
+        },
+        {
+          "playerId": "p020",
+          "points": 45
+        },
+        {
+          "playerId": "p023",
+          "points": 45
+        },
+        {
+          "playerId": "p008",
+          "points": 45
+        },
+        {
+          "playerId": "p006",
+          "points": 45
+        },
+        {
+          "playerId": "p065",
+          "points": 45
+        },
+        {
+          "playerId": "p027",
+          "points": 45
+        },
+        {
+          "playerId": "p015",
+          "points": 45
+        },
+        {
+          "playerId": "p011",
+          "points": 45
+        },
+        {
+          "playerId": "p035",
+          "points": 25
+        },
+        {
+          "playerId": "p042",
+          "points": 25
+        },
+        {
+          "playerId": "p063",
+          "points": 25
+        },
+        {
+          "playerId": "p026",
+          "points": 25
+        },
+        {
+          "playerId": "p021",
+          "points": 25
+        },
+        {
+          "playerId": "p025",
+          "points": 25
+        },
+        {
+          "playerId": "p029",
+          "points": 25
+        },
+        {
+          "playerId": "p_mwtei5vrmh15ca",
           "points": 25
         }
       ]
